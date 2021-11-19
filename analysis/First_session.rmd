@@ -14,14 +14,14 @@ In the following classes we will be learning how to use `R` and `R studio` for d
 ### Outline for the course
 
 * Downloading and installing `R` and `R studio`
-* A first `R` session
-  + basic arithmetic
-  + Objects
-  + Functions
-  + Vectors
-  + Data frames
-  + Basic plotting
-  + Packages
+* Basic arithmetic
+* Objects
+* Functions
+* Vectors
+* Data frames
+* Scripts
+* Loading data
+* Packages
 * The `tidyverse`
 
 # What is `R`
@@ -625,9 +625,10 @@ ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm, colour = specie
 ```
 
 To show just how much you can customise your graphics lets try an extreme example...
-```{r}
-ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm, colour = species)) +
-  geom_point() +
+```{r, fig.width=10, fig.height=10}
+ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm)) +
+  geom_point(aes(colour = species)) +
+  geom_smooth(aes(lty = island), colour = 'orange') +
   labs(x = 'Body mass (g)', y = 'Bill length (mm)') + 
   scale_colour_viridis_d() +
   theme(legend.position = 'top',
