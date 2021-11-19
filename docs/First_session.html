@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="MartinGarlovsky" />
+
+<meta name="date" content="2021-11-11" />
+
+<title>First_session</title>
+
+<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Introduction2Rstudio</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">First_session</h1>
+<h4 class="author">MartinGarlovsky</h4>
+<h4 class="date">2021-11-11</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2021-11-19
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>Introduction2Rstudio/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20211111code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20211111)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20211111code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20211111)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong51276f2"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> 51276f2 </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrong51276f2" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version 51276f2. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+
+Untracked files:
+    Untracked:  data/bumblebee_data.csv
+    Untracked:  data/bumblebee_data.txt
+    Untracked:  output/bad_ggplot.pdf
+    Untracked:  output/first_ggplot.pdf
+    Untracked:  output/second_ggplot.pdf
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/First_session.rmd</code>) and HTML (<code>docs/First_session.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+51276f2
+</td>
+<td>
+MartinGarlovsky
+</td>
+<td>
+2021-11-19
+</td>
+<td>
+wflow_publish(“analysis/First_session.rmd”)
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>In the following classes we will be learning how to use <code>R</code> and <code>R studio</code> for data analysis. This will be a short introduction with the aim of getting you all familiar with the basics of how to use <code>R</code> for data management, exploring data, performing statistics, and plotting. There is a lot to learn in this short time but if you ever have any queries feel free to send me an <a href="martin.garlovsky@tu-dresden.de">email</a> or find me in the Biology Building - room 258.</p>
+<div id="outline-for-the-course" class="section level3">
+<h3>Outline for the course</h3>
+<ul>
+<li>Downloading and installing <code>R</code> and <code>R studio</code></li>
+<li>A first <code>R</code> session
+<ul>
+<li>basic arithmetic</li>
+<li>Objects</li>
+<li>Functions</li>
+<li>Vectors</li>
+<li>Data frames</li>
+<li>Basic plotting</li>
+<li>Packages</li>
+</ul></li>
+<li>The <code>tidyverse</code></li>
+</ul>
+</div>
+</div>
+<div id="what-is-r" class="section level1">
+<h1>What is <code>R</code></h1>
+<p>Before we get started - what is <code>R</code> and why should you care?</p>
+<p><code>R</code> is a powerful, sophisticated and <em>free to use</em> piece of software to perform (almost) all your data analysis needs. From managing your data through to generating publication ready figures for that paper you’ve been working on.</p>
+<ul>
+<li><code>R</code> is perhaps the most widely used software used in Ecology and Evolution and has several key features:
+<ul>
+<li>Reproducible and stable</li>
+<li>Free to use and open source</li>
+<li></li>
+</ul></li>
+</ul>
+</div>
+<div id="downloading-and-installing-r" class="section level1">
+<h1>Downloading and installing <code>R</code></h1>
+</div>
+<div id="first-r-session" class="section level1">
+<h1>First R session</h1>
+<p>Now we’ve installed <code>R</code> on to our computers lets open it up. You should see something like this.</p>
+<p>Not much to see here. But you’re greeted with the:</p>
+<p><code>&gt;</code> called the prompt.</p>
+<div id="things-to-know" class="section level3">
+<h3>Things to know</h3>
+<ul>
+<li><code>R</code> is <em>case sensitive</em> - which means <code>R</code> know the difference between ‘martin’ and ‘Martin’ so that you’ll get an error if you type <code>martin</code> when you mean <code>Martin</code>!</li>
+<li>Speaking of error messages - the error messages are often not very helpful for beginners. But the internet is your friend and a quick search will often help you troubleshooting.</li>
+</ul>
+</div>
+<div id="simple-arithmetic" class="section level2">
+<h2>Simple arithmetic</h2>
+<p>We’ll start with some simple arithmetic to get you familiar with how R works. You can type directly in to the <code>console</code> window to perform tasks. This lets you directly interact with R to do things - like perform calculations.</p>
+<ul>
+<li>The math symbols:
+<ul>
+<li><code>+</code> addition</li>
+<li><code>-</code> subtraction</li>
+<li><code>*</code> multiplication</li>
+<li><code>/</code> division</li>
+<li><code>^</code> raise to the power of</li>
+</ul></li>
+</ul>
+<p>Type 1 + 1 and hit <code>enter</code></p>
+<pre class="r"><code>1 + 1</code></pre>
+<pre><code>[1] 2</code></pre>
+<p>Now try 3 x 9</p>
+<pre class="r"><code>3*9</code></pre>
+<pre><code>[1] 27</code></pre>
+<p>Try the following:</p>
+<ul>
+<li>5 x 9</li>
+<li><span class="math inline">\(3^6\)</span></li>
+<li>Add 3 to 11 and then multiply by 7</li>
+<li>Subtract 14 from from 110 and then raise to the power of 3 plus 1.4 (the answer should be 5.2722188^{8})</li>
+<li>Divide 9 by 2.4</li>
+<li><span class="math inline">\(\sqrt51\)</span></li>
+<li><span class="math inline">\(\log_{10}41\)</span> (answer = 1.6127839)</li>
+</ul>
+<pre class="r"><code>5 * 9</code></pre>
+<pre><code>[1] 45</code></pre>
+<pre class="r"><code>3 ^ 6</code></pre>
+<pre><code>[1] 729</code></pre>
+<pre class="r"><code>(3 + 11) * 7</code></pre>
+<pre><code>[1] 98</code></pre>
+<pre class="r"><code>(110 - 14) ^ (3 + 1.4)</code></pre>
+<pre><code>[1] 527221880</code></pre>
+<pre class="r"><code>9 / 2.4</code></pre>
+<pre><code>[1] 3.75</code></pre>
+<pre class="r"><code>sqrt(51)</code></pre>
+<pre><code>[1] 7.141428</code></pre>
+<pre class="r"><code>log10(41)</code></pre>
+<pre><code>[1] 1.612784</code></pre>
+</div>
+<div id="objects" class="section level2">
+<h2>Objects</h2>
+<p>R is ‘object orientated’… we use the <code>&lt;-</code> assign symbol. You can think of this symbol as meaning "make the thing on the left (the object) in to the output of the command on the right. Objects store information, this can be things like sums or the output of a function, data frames or other functions themselves.</p>
+<p>Lets create an object called ‘x’ equal to 5 and hit enter.</p>
+<pre class="r"><code>x &lt;- 5</code></pre>
+<p>What happened? Nothing right? And you’re left with the prompt blinking again… This is often a good sign in R! The object <code>x</code> has been stored in R’s ‘brain’. You can think of how making objects as “make <code>x</code> equal to 5”.</p>
+<ul>
+<li>Note that <code>-&gt;</code> is equally valid but used less often.</li>
+<li>A handy shortcut - instead of typing out <code>&lt;</code> then <code>-</code> each time we can type ‘<code>alt</code> + <code>-</code>’.</li>
+</ul>
+<p>You can inspect the object by typing <code>x</code> in the console and hitting <code>enter</code> again:</p>
+<pre class="r"><code>x</code></pre>
+<pre><code>[1] 5</code></pre>
+<p>We can perform operations on objects such as mathematics:</p>
+<pre class="r"><code>x * 5</code></pre>
+<pre><code>[1] 25</code></pre>
+<p>Note that while we performed an operation on <code>x</code>, it is itself unchanged. We can check this by inspecting <code>x</code> which is still 5 (not 25)</p>
+<pre class="r"><code>x</code></pre>
+<pre><code>[1] 5</code></pre>
+<p>We can also store the output as a new object</p>
+<pre class="r"><code>answer &lt;- x * 5</code></pre>
+<p>Be careful with <code>&lt;-</code>; objects can be overwritten. So if you now assign something else to <code>answer</code> you will lose the previous information:</p>
+<pre class="r"><code>answer &lt;- 200
+answer</code></pre>
+<pre><code>[1] 200</code></pre>
+<p>These objects are stored in R’s “brain”. This means that when we type <code>x</code> or <code>answer</code> R will search for an object. We can see what objects are stored using <code>ls()</code> (short for list).</p>
+<pre class="r"><code>ls()</code></pre>
+<pre><code>[1] &quot;answer&quot; &quot;x&quot;     </code></pre>
+<p>It is often good practice to clear R’s brain at the beginning of every new session. This is because we may have 2 completely different projects where we have stored things with similar names (e.g. <code>model1</code>). We need to start fresh so there is no confusion.</p>
+<p>We can remove individual objects using <code>rm()</code> (short for ‘remove’), or we can clear everything from R’s brain by typing <code>rm(list = ls())</code> (don’t worry too much about what this means for now).</p>
+<pre class="r"><code>rm(x)
+
+rm(list = ls())</code></pre>
+<p>Now see what information is stored in R’s brain again, it should be blank:</p>
+<pre class="r"><code>ls()</code></pre>
+<pre><code>character(0)</code></pre>
+</div>
+<div id="functions" class="section level2">
+<h2>Functions</h2>
+<p>Functions carry out procedures on numbers or objects. For instance, you’ve already used some functions when you calculated <span class="math inline">\(\sqrt51\)</span> and <span class="math inline">\(\log_{10}41\)</span>. Functions take ‘arguments’ telling it what to use and what to do. For instance, we can use the <code>round()</code> function to round numbers, which takes as its arguments (i) a number and (ii) the number of decimal places to be used.</p>
+<pre class="r"><code>round(x = 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679, digits = 3)</code></pre>
+<pre><code>[1] 3.142</code></pre>
+<p>We can create objects which contain the output from functions</p>
+<pre class="r"><code>log_value &lt;- log(5299)</code></pre>
+</div>
+<div id="vectors" class="section level2">
+<h2>Vectors</h2>
+<p>Vectors are the basic unit in R. A vector stores a 1-dimensional set of values (for instance the numbers 1 to 10). Vectors should contain only one type of data. That means all numbers, or all character strings, etc.</p>
+<div id="numeric-vectors" class="section level3">
+<h3>Numeric vectors</h3>
+<p>We can create a vector using the <code>concatenate</code> function which is shortened to simply <code>c()</code>.</p>
+<pre class="r"><code>num_vec1 &lt;- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)</code></pre>
+<p>Each entry in a vector is called an ‘element’. We can perform operations on vectors. For instance we could add 1 to each element in <code>num_vec1</code></p>
+<pre class="r"><code>num_vec1 + 1</code></pre>
+<pre><code> [1]  2  3  4  5  6  7  8  9 10 11</code></pre>
+<p>We could also have created the same vector using the <code>seq()</code> function. Notice that <code>seq()</code> takes multiple arguments (i.e. <code>from =</code>, <code>to =</code>, <code>by =</code>, etc.) and we can generate the same result in different ways. You can check what arguments can be used with a function with the <code>?</code> to access the help page for a function (i.e. <code>?seq</code>). Note that these ‘help’ pages are often not very useful for beginners, but as you learn more about R you will find it easier to interpret these pages.</p>
+<pre class="r"><code>num_vec1a &lt;- seq(from = 1, to = 10, by = 1)
+num_vec1b &lt;- seq(from = 1, to = 10, length = 10)</code></pre>
+<p>We can check whether our two different uses of <code>seq()</code> produce the same result by subtracting every value from <code>num_vec1b</code> from <code>num_vec1a</code>. We should get all zeros: <span class="math inline">\(1 - 1 = 0\)</span>, <span class="math inline">\(2 - 2 = 0\)</span>, etc.).</p>
+<pre class="r"><code>num_vec1b - num_vec1a</code></pre>
+<pre><code> [1] 0 0 0 0 0 0 0 0 0 0</code></pre>
+<p>This demonstrates again how operations performed on vectors work. The first element from <code>num_vec1b</code> (1) was subtracted from the first element of <code>num_vec1a</code> (1), and so on.</p>
+</div>
+<div id="character-vectors" class="section level3">
+<h3>Character vectors</h3>
+<p>Character vectors work in a similar way to numeric vectors that we just introduced. But first a little terminology. <code>Martin</code> is a character ‘string’ containing a series of characters (letters) next to each other.</p>
+<p>We can create a character vector like so</p>
+<pre class="r"><code>myname &lt;- c(&#39;Martin&#39;, &#39;David&#39;, &#39;Garlovsky&#39;)</code></pre>
+</div>
+<div id="working-with-vectors" class="section level3">
+<h3>Working with vectors</h3>
+<p>What if we want to access information from within our vectors? Here we’ll also explain what the numbers that appear at the left hand side of the console, i.e. <code>[1]</code> mean. This number 1 in square brackets is telling us the position of this element in the vector. If we have a longer vector that prints over multiple lines we’ll see more numbers telling us the position of that element in the vector. For instance below, the 19th element in our vector is the number <code>37</code>, while the 91st element is the number <code>181</code>.</p>
+<pre class="r"><code>seq(from = 1, to = 200, by = 2)</code></pre>
+<pre><code>  [1]   1   3   5   7   9  11  13  15  17  19  21  23  25  27  29  31  33  35
+ [19]  37  39  41  43  45  47  49  51  53  55  57  59  61  63  65  67  69  71
+ [37]  73  75  77  79  81  83  85  87  89  91  93  95  97  99 101 103 105 107
+ [55] 109 111 113 115 117 119 121 123 125 127 129 131 133 135 137 139 141 143
+ [73] 145 147 149 151 153 155 157 159 161 163 165 167 169 171 173 175 177 179
+ [91] 181 183 185 187 189 191 193 195 197 199</code></pre>
+<p>If we want to know the value from a specific position in our vector we use the square brackets (<code>[]</code>). For instance, if we want to find out what the 7th number in our numeric vector is:</p>
+<pre class="r"><code>num_vec1[7]</code></pre>
+<pre><code>[1] 7</code></pre>
+<p>Or if we wanted to find my middle name:</p>
+<pre class="r"><code>myname[2]</code></pre>
+<pre><code>[1] &quot;David&quot;</code></pre>
+<p>You can also create vectors using the <code>:</code> symbol as a shortcut to get a vector of integer values. For instance, if we want the first 10 letters of the alphabet, we can combine the <code>letters</code> with the index <code>1:10</code>:</p>
+<pre class="r"><code>letters[1:10]</code></pre>
+<pre><code> [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;i&quot; &quot;j&quot;</code></pre>
+</div>
+</div>
+<div id="data-frames" class="section level2">
+<h2>Data frames</h2>
+<p>R is really great for working with what are called ‘data frames’. Data frames contain rows and columns of vectors containing information. Usually (hopefully) each row in a data frame corresponds to an observation (e.g. from a single individual or sample), and each column contains a variable (e.g. treatment, weight, Date, etc.). We’ll make this clear with a dummy example to begin with. Let’s imagine we have measured the height and weight of 6 people that took part in a study where volunteers ate a vegetarian or vegan diet for 6 weeks.</p>
+<p>First, lets create the 3 variables; <code>height</code> (in cm), <code>weight</code> (in kg), and <code>diet</code> (vegan or vegetarian) by making vectors.</p>
+<pre class="r"><code>height &lt;- c(165, 175, 162, 160, 189, 200)
+weight &lt;- c(90, 68, 110, 56, 89, 120)
+diet &lt;- rep(c(&#39;vegan&#39;, &#39;vegetarian&#39;), 3)</code></pre>
+<p>Then we’ll create the data frame using the <code>data.frame()</code> function.</p>
+<pre class="r"><code>diet_data &lt;- data.frame(height, weight, diet)</code></pre>
+<div id="inspecting-the-data" class="section level3">
+<h3>Inspecting the data</h3>
+<p>Often the very first thing to do after loading our data is to make a quick first inspection. There are several useful functions for inspecting the structure and contents of data frames. Base R has many useful functions, and the <code>tidyverse</code> offers a range of alternatives (which we’ll see later).</p>
+<div id="str" class="section level4">
+<h4><code>str</code></h4>
+<p>First lets take a look at the structure of the data using the <code>str()</code> function. By ‘structure’ we mean how many rows and columns are there in the data frame? What are the names of the variables in the data? What form are the variables (i.e., numeric, character, integer, etc.)?</p>
+<pre class="r"><code>str(diet_data)</code></pre>
+<pre><code>&#39;data.frame&#39;:   6 obs. of  3 variables:
+ $ height: num  165 175 162 160 189 200
+ $ weight: num  90 68 110 56 89 120
+ $ diet  : chr  &quot;vegan&quot; &quot;vegetarian&quot; &quot;vegan&quot; &quot;vegetarian&quot; ...</code></pre>
+<p>We can see that the data frame consists of 6 observations (<code>obs.</code>) of three variables. <code>height</code> and <code>weight</code> are numeric (<code>num</code>) variables and the <code>diet</code> variable consists of character strings (<code>chr</code>).</p>
+</div>
+<div id="head" class="section level4">
+<h4><code>head</code></h4>
+<p>Along with checking the structure of the data, it is often useful to take a quick look at the data frame (rather than trying to see all the data at once). We can use the <code>head()</code> function to look at the first few rows of the data frame. By default <code>head()</code> returns the first 6 rows of the data frame. What about if we wanted to see more (or less) than 6 rows? - Hint: take a look at <code>?head</code></p>
+<pre class="r"><code>head(diet_data)</code></pre>
+<pre><code>  height weight       diet
+1    165     90      vegan
+2    175     68 vegetarian
+3    162    110      vegan
+4    160     56 vegetarian
+5    189     89      vegan
+6    200    120 vegetarian</code></pre>
+<p>We see the first 6 rows of the data frame and all the variables. For larger data frames with more variables that extend beyond the console window the information may be printed over several lines.</p>
+<ul>
+<li>Like <code>head()</code> we can also look at the last entries in a data frame using <code>tail()</code>.</li>
+</ul>
+</div>
+<div id="summary" class="section level4">
+<h4><code>summary</code></h4>
+<p>The <code>summary()</code> function can also be used to… summarise the data in a data frame. For instance, showing us the range of values and simple statistics like the minimum and maximum values, mean, median, and interquartile range.</p>
+<pre class="r"><code>summary(diet_data)</code></pre>
+<pre><code>     height          weight           diet          
+ Min.   :160.0   Min.   : 56.00   Length:6          
+ 1st Qu.:162.8   1st Qu.: 73.25   Class :character  
+ Median :170.0   Median : 89.50   Mode  :character  
+ Mean   :175.2   Mean   : 88.83                     
+ 3rd Qu.:185.5   3rd Qu.:105.00                     
+ Max.   :200.0   Max.   :120.00                     </code></pre>
+<p><code>summary()</code> is a versatile function and can be used on a range of different types of objects which we will learn about later.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="using-the-script-window" class="section level1">
+<h1>Using the script window</h1>
+<p>So far we’ve been working exclusively in the <code>console</code>. Unlike in the console window, hitting <code>enter</code> in the script window no longer executes your code, but instead will insert a new line. To execute a line of code we have to highlight the text and press <code>cmd + enter</code> (on Mac) or <code>ctrl + enter</code> (PC). <strong>To execute an entire line we do not have to highlight anything</strong> but can simply hit <code>cmd + enter</code>/<code>ctrl + enter</code> and R will execute the code and move to the next line. In the next section introducing <code>packages</code> this will hopefully become clear.</p>
+<div id="annotating-your-script" class="section level2">
+<h2>Annotating your script</h2>
+<p>Working with scripts has many advantages over working directly in the console. First, when working directly in the <code>consol</code>, if you make a mistake you have to go back and retype everything in to the console (or at least hit the <code>up</code> arrow and find your mistake again). Unless you save the <code>workspace</code> (don’t), you will also not have a record of your workflow - which is crucial to make sure your analyses are <strong><em>reproducible</em></strong>. Working with scripts also allows you to add annotation to your code to help future scientists (this may be your future self) know exactly what you did. The importance of annotating your scripts cannot be overstated! Writing your code in scripts - combined with adding detailed annotation - also allows you to share your code and work collaboratively.</p>
+<p>To add a comment to your script first type the <code>#</code> symbol followed by your annotation. You can also use the <code>#</code> to ‘comment’ out a line of code so that <code>R</code> knows not to try and evaluate this line of text.</p>
+<pre class="r"><code># Here is an example of adding some annotations to a script. 
+
+# A plot of the diet data using base R
+plot(diet_data$height, diet_data$weight,
+     col = c(&#39;red&#39;, &#39;blue&#39;),
+     pch = 16, 
+     cex = 5, # increase the size of the points with &#39;cex&#39;
+     ylim = c(50, 130), # increase the Y axis limits so points are not cut off
+     main = &#39;Height (cm) vs. Weight (kg)&#39;,
+     xlab = &#39;Height (cm)&#39;, ylab = &#39;Weight (kg)&#39;,
+     las = 2 # we can change the orientation of the axis labels which is a bit odd in this case...
+     )</code></pre>
+<p><img src="figure/First_session.rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># We&#39;ve not covered any statistics yet so this code is commented out
+#cor.test(diet_data$height, diet_data$weight)</code></pre>
+</div>
+</div>
+<div id="setting-the-working-directory-and-importing-data" class="section level1">
+<h1>Setting the working directory and importing data</h1>
+<p>So far we’ve used some ‘dummy’ data to demonstrate how we can use <code>R</code>. When it comes to using your own data, the first step is to load the data in to <code>R</code>. To understand how to do this we first need to understand a little about how the file system works on your computer and working with ‘directories’.</p>
+<p>When we want load data in to <code>R</code> from our computer we first have to tell <code>R</code> where to ‘look’ for the file containing the data. By default, <code>R</code> will look in what is called the current <em>working directory</em>. A directory is computer language for a folder. A directory can contain files (like your data), or other folders (other directories).</p>
+<p>When we ask <code>R</code> to load the data it first looks in the current working directory. You can think of this like if you were to look for a pair of shoes to put on. The room you are currently in is the current working directory. The shoes (file) you want may be in this room (directory), but might be in another room (directory). If the folder (shoes) are in a different directory (room) to the one we are currently in we have to tell <code>R</code> to go and look in another directory.</p>
+<p>We can find the current working directory with <code>getwd()</code> (<code>wd</code> stands for working directory)</p>
+<pre class="r"><code>getwd()</code></pre>
+<pre><code>[1] &quot;/Users/martin/Dropbox/Introduction2Rstudio&quot;</code></pre>
+<p>This character string, separated by <code>/</code>’s is called a <strong><code>path</code></strong>, and gives the directions to the current working directory. So we are in the directory <code>Introduction2Rstudio</code> which is in the <code>Dropbox</code> directory, which is in the <code>martin</code> directory, which is in the <code>Users</code> directory, which is in the <code>root</code> directory.</p>
+<p>You can see the current working directory and what files are in there interactively using the <code>Files</code> tab in the <code>help</code> panel. We could move the files we want to load in to <code>R</code> in to the current working directory. Alternatively, we can tell <code>R</code> to move to a different working directory to look for files using <code>setwd()</code>. Here I set the working directory to <code>"/Users/martin/Dropbox/TUDAZ"</code>, using the shortcut <code>~/</code> which tells <code>R</code> to start from my ‘home’ directory (<code>"/Users/martin"</code>).</p>
+<pre class="r"><code>setwd(&#39;~/Dropbox/TUDAZ&#39;)</code></pre>
+<p>Then we can check that we have changed working directory with <code>getwd()</code> again</p>
+<pre class="r"><code>getwd()</code></pre>
+<pre><code>[1] &quot;/Users/martin/Dropbox/TUDAZ&quot;</code></pre>
+<p>Alternatively, you can navigate anywhere in your computer using the file path, though this is a bit advanced for beginners and those not familiar with the path system.</p>
+<div id="loading-the-data" class="section level2">
+<h2>Loading the data</h2>
+<p>Once we have changed the working directory to the tell <code>R</code> where we can find our data, we can finally load the data in to <code>R</code>. There are many different file types, and you might be most familiar with something like an excel spreadsheet. Excel may be good for entering your raw data and there are packages available to load data directly from <code>.xls</code> files. However, often we will work with <code>.csv</code> or <code>.txt</code> files which have advantages over excel files such as taking up less space on your computer, making them faster to loadrs</p>
+<p>We have a data set of bumble bee visits to different flowers in the form of ‘comma separated values’, or <code>.csv</code> file in the <code>data</code> folder. To load the data we can use the <code>read.csv()</code> function and use the <code>&lt;-</code> symbol to call the loaded data <code>bumblebees</code>.</p>
+<pre class="r"><code>bumblebees &lt;- read.csv(&#39;bumblebee_data.csv&#39;)</code></pre>
+<p>For this example the only argument we need is the path to the <code>.csv</code> file. If we try and load the same data saved as a ‘tab-delimited text’ <code>.txt</code> file using the <code>read.delim()</code> function we need to specify a couple more arguments. <code>sep = '\t'</code> tells the function that values in each column are separated by a ‘tab’ which in computer code is denoted with <code>\t</code>. We also need to tell <code>read.delim()</code> that the first row in the file should be used as column names using <code>header = TRUE</code>. We’ll call this object <code>bumble_txt</code> and then quickly inspect the data.</p>
+<pre class="r"><code>bumble_txt &lt;- read.delim(&#39;bumblebee_data.txt&#39;, sep = &#39;\t&#39;, header = TRUE)</code></pre>
+<pre class="r"><code>head(bumble_txt)</code></pre>
+<pre><code>  ID Blossom.type Blossom.colour Pollinator.species Flower.visit.per.10.min
+1  1      complex           blue  Bombus terrestris                      11
+2  2       simple         yellow  Bombus terrestris                       6
+3  3      complex         yellow  Bombus terrestris                       6
+4  4       simple           blue  Bombus terrestris                      21
+5  5      complex           blue  Bombus terrestris                       9
+6  6       simple         yellow  Bombus terrestris                       3
+  Flower.visit.duration.s
+1                       6
+2                      17
+3                       5
+4                      14
+5                      18
+6                      16</code></pre>
+</div>
+<div id="managing-your-projects-and-folders" class="section level2">
+<h2>Managing your projects and folders</h2>
+<p>Ideally, we want to organise our projects and data efficiently. It is a good idea to have separate folders for each project you are working on. For instance, you might have one folder for this <code>R</code> course, and another folder for your dissertation project. These should be in a <code>parent</code> directory called <code>TUDAZmasters</code> or something like that. <code>R studio</code> has some dedicated tools to make working in separate projects easier that we will introduce later. For instance, this document you are reading is part of an <code>R project</code>. All the data and R scripts relating to this course can be found in one directory (called <code>Introduction2Rstudio</code>).</p>
+</div>
+</div>
+<div id="packages" class="section level1">
+<h1>Packages</h1>
+<p>Next we’ll introduce one of the things which makes <code>R</code> such a versitile and powerful tool for data analysis. That is the huge numbers of <a href="https://cran.r-project.org/web/packages/available_packages_by_name.html"><code>packages</code></a> which extend the utility of <code>R</code> for almost any data analysis or graphics problem you might have.</p>
+<div id="installing-and-loading-packages" class="section level2">
+<h2>Installing and loading packages</h2>
+<p>When you first downloaded and installed <code>R</code> it came ready to use with some packages already installed (such as <code>stats</code> and <code>graphics</code>). But to really harness the power of <code>R</code> we can install additional packages. We will be using the <code>tidyverse</code> package and environment a lot in the following sections which we’ll install here to demonstrate how packages work. First we use <code>install.packages()</code> to download the <code>tidyverse</code> package from the web. Then we’ll use <code>library()</code> to load the package.</p>
+<pre class="r"><code>install.packages(&#39;tidyverse&#39;)
+
+library(tidyverse)</code></pre>
+<pre><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</code></pre>
+<pre><code>✓ ggplot2 3.3.5     ✓ purrr   0.3.4
+✓ tibble  3.1.5     ✓ dplyr   1.0.7
+✓ tidyr   1.1.4     ✓ stringr 1.4.0
+✓ readr   2.0.1     ✓ forcats 0.5.1</code></pre>
+<pre><code>── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+x dplyr::filter() masks stats::filter()
+x dplyr::lag()    masks stats::lag()</code></pre>
+<p>New users often have some difficulty understanding the way we work with packages. A common mistake is to use <code>install.packages()</code> each time we want to load a package, instead of <code>library()</code>. You can think of how we use <code>R</code> combined with <code>packages</code> like installing and using software on your phone or computer. The first time you wanted to listen to music on your phone you downloaded and installed the Music app. That is like using <code>install.packages()</code>. Every time you want to listen to music you do not download the app again, you just open the app by pressing the icon. That is like using <code>library()</code>. You need to be connected to the internet to use <code>install.packages()</code>, whereas you can be completely offline when you use <code>library()</code> (and most of the time when using <code>R</code>).</p>
+</div>
+</div>
+<div id="the-tidyverse" class="section level1">
+<h1>The <code>tidyverse</code></h1>
+<p>The <a href="link"><code>tidyverse</code></a> is a group of packages designed to work together to make data management and analysis easier. There are many other ways to write your code and no one way is superior to the other. The <code>tidyverse</code> follows a set of principle which you may find agreeable, or somewhat dogmatic.</p>
+<div id="tidy-data" class="section level2">
+<h2>tidy data</h2>
+<p>One of the key tenets of the tidyverse is ‘tidy’ data. You may remember that earlier we mentioned that ideally data should be in the form of having each row corresponding to an ‘observation’ and each column a ‘variable’. This is the tidy data structure. It may not always be feasible or indeed desirable to record your data by hand in the tidy format. However, once you load your data in to <code>R</code> we can easily ‘reshape’ the data appropriately.</p>
+<p>To demonstrate, consider the following data frame which records the weight of our volunteers before and after the 6 week vegan or vegetarian diet treatment.</p>
+<pre><code>        diet weight_1 weight_2
+1      vegan     70.1     69.6
+2      vegan     71.5     70.2
+3      vegan     70.7     68.9
+4 vegetarian     73.5     70.5
+5 vegetarian     69.6     69.6
+6 vegetarian     69.1     70.7</code></pre>
+<p>This data is not in the tidy format as the <code>weight</code> variable is split over two columns, <code>weight_1</code> and <code>weight_2</code>, corresponding to the two time points measurements were taken of each individual before and after the experiment. By comparison a tidy version of the same data would look like the following, with one observation per row, and a new variable (column) indicating the measurement <code>time</code>.</p>
+<pre><code>         diet time weight
+1       vegan    1   70.1
+2       vegan    2   69.6
+3       vegan    1   71.5
+4       vegan    2   70.2
+5       vegan    1   70.7
+6       vegan    2   68.9
+7  vegetarian    1   73.5
+8  vegetarian    2   70.5
+9  vegetarian    1   69.6
+10 vegetarian    2   69.6
+11 vegetarian    1   69.1
+12 vegetarian    2   70.7</code></pre>
+</div>
+<div id="penguin-data-set" class="section level2">
+<h2>Penguin data set</h2>
+<p>There are vast amounts of data available online for you to download and explore. For our short intro we’ll use a data set containing measurement of penguins on the Palmer Archipelago which is a nice example data set to be able to demonstrate all the various things we need to be able to do. This data set has superseded the previously popular <code>iris</code> data set collected by R. A. Fisher due to his (and his contemporaries) association with <a href="https://nautil.us/issue/92/frontiers/how-eugenics-shaped-statistics">eugenics</a>.</p>
+<p>First we have to download the data which is available as part of the <code>palmerpenguins</code> package, collected and made available by Dr. Kristen Gorman and the Palmer Station. Then we’ll load the data and take a look. Notice that I have ‘commented out’ the first line of code where we install the package - as I already installed the <code>palmerpenguins</code> package on this computer.</p>
+<pre class="r"><code>#install.packages(&#39;palmerpenguins&#39;)
+
+library(palmerpenguins)
+
+str(penguins)</code></pre>
+<pre><code>tibble [344 × 8] (S3: tbl_df/tbl/data.frame)
+ $ species          : Factor w/ 3 levels &quot;Adelie&quot;,&quot;Chinstrap&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+ $ island           : Factor w/ 3 levels &quot;Biscoe&quot;,&quot;Dream&quot;,..: 3 3 3 3 3 3 3 3 3 3 ...
+ $ bill_length_mm   : num [1:344] 39.1 39.5 40.3 NA 36.7 39.3 38.9 39.2 34.1 42 ...
+ $ bill_depth_mm    : num [1:344] 18.7 17.4 18 NA 19.3 20.6 17.8 19.6 18.1 20.2 ...
+ $ flipper_length_mm: int [1:344] 181 186 195 NA 193 190 181 195 193 190 ...
+ $ body_mass_g      : int [1:344] 3750 3800 3250 NA 3450 3650 3625 4675 3475 4250 ...
+ $ sex              : Factor w/ 2 levels &quot;female&quot;,&quot;male&quot;: 2 1 1 NA 1 2 1 2 NA NA ...
+ $ year             : int [1:344] 2007 2007 2007 2007 2007 2007 2007 2007 2007 2007 ...</code></pre>
+<pre class="r"><code>head(penguins)</code></pre>
+<pre><code># A tibble: 6 × 8
+  species island bill_length_mm bill_depth_mm flipper_length_… body_mass_g sex  
+  &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;            &lt;int&gt;       &lt;int&gt; &lt;fct&gt;
+1 Adelie  Torge…           39.1          18.7              181        3750 male 
+2 Adelie  Torge…           39.5          17.4              186        3800 fema…
+3 Adelie  Torge…           40.3          18                195        3250 fema…
+4 Adelie  Torge…           NA            NA                 NA          NA &lt;NA&gt; 
+5 Adelie  Torge…           36.7          19.3              193        3450 fema…
+6 Adelie  Torge…           39.3          20.6              190        3650 male 
+# … with 1 more variable: year &lt;int&gt;</code></pre>
+<pre class="r"><code>summary(penguins)</code></pre>
+<pre><code>      species          island    bill_length_mm  bill_depth_mm  
+ Adelie   :152   Biscoe   :168   Min.   :32.10   Min.   :13.10  
+ Chinstrap: 68   Dream    :124   1st Qu.:39.23   1st Qu.:15.60  
+ Gentoo   :124   Torgersen: 52   Median :44.45   Median :17.30  
+                                 Mean   :43.92   Mean   :17.15  
+                                 3rd Qu.:48.50   3rd Qu.:18.70  
+                                 Max.   :59.60   Max.   :21.50  
+                                 NA&#39;s   :2       NA&#39;s   :2      
+ flipper_length_mm  body_mass_g       sex           year     
+ Min.   :172.0     Min.   :2700   female:165   Min.   :2007  
+ 1st Qu.:190.0     1st Qu.:3550   male  :168   1st Qu.:2007  
+ Median :197.0     Median :4050   NA&#39;s  : 11   Median :2008  
+ Mean   :200.9     Mean   :4202                Mean   :2008  
+ 3rd Qu.:213.0     3rd Qu.:4750                3rd Qu.:2009  
+ Max.   :231.0     Max.   :6300                Max.   :2009  
+ NA&#39;s   :2         NA&#39;s   :2                                 </code></pre>
+<p>We can see the <code>penguins</code> data is in the tidy format (yay) and consists of 344 observations of 8 variables describing penguins by:</p>
+<ul>
+<li>species of the penguin</li>
+<li>island it was found on</li>
+<li>bill and flipper measurement</li>
+<li>body mass, sex, and collection year</li>
+</ul>
+<p>Using the <code>summary()</code> function we can also see that we have some <code>NA</code> values. <code>NA</code> stands for ‘not available’ and is <code>R</code> notation for missing values. Missing values are important as they can affect how functions work. It is also important to distinguish missing values (<code>NA</code>s) from ‘real’ <code>0</code>s.</p>
+</div>
+<div id="dplyr" class="section level2">
+<h2><code>dplyr</code></h2>
+<p><code>dplyr</code> uses a set of ‘verbs’ to manipulate your data frames. The main players are:</p>
+<ul>
+<li><code>select</code> - to choose variables</li>
+<li><code>mutate</code> - to add new variables</li>
+<li><code>filter</code> - to subset the data</li>
+<li>there are many other very useful <code>dplyr</code> verbs</li>
+</ul>
+<p>All <code>dplyr</code> functions take as their first argument the data frame to manipulate, followed by one or more other arguments.</p>
+<div id="select" class="section level3">
+<h3><code>select</code></h3>
+<p>We can use the <code>select()</code> function to include or exclude certain variables (columns) from the data frame. For instance, if we are only interested in data to compare bill measurements between species on each island. The first argument in the <code>select()</code> function is the data frame to be manipulated, and the following arguments are the names of the variables we wish to select.</p>
+<pre class="r"><code>select(penguins, species, bill_length_mm, bill_depth_mm)</code></pre>
+<pre><code># A tibble: 344 × 3
+   species bill_length_mm bill_depth_mm
+   &lt;fct&gt;            &lt;dbl&gt;         &lt;dbl&gt;
+ 1 Adelie            39.1          18.7
+ 2 Adelie            39.5          17.4
+ 3 Adelie            40.3          18  
+ 4 Adelie            NA            NA  
+ 5 Adelie            36.7          19.3
+ 6 Adelie            39.3          20.6
+ 7 Adelie            38.9          17.8
+ 8 Adelie            39.2          19.6
+ 9 Adelie            34.1          18.1
+10 Adelie            42            20.2
+# … with 334 more rows</code></pre>
+<p><code>select()</code> also allows us to rename variables at the same time as selecting them. For instance, we might want to make the names shorter so we have less to type later. At the same time we’ll assign this subset of the data to a new data frame called <code>bill_data</code>. Note that using <code>select()</code> to include only some variables does not affect the original <code>penguins</code> data.</p>
+<pre class="r"><code>bill_data &lt;- select(penguins, species, length = bill_length_mm, depth = bill_depth_mm)</code></pre>
+<p>Lets look at the new data frame:</p>
+<pre class="r"><code>head(bill_data)</code></pre>
+<pre><code># A tibble: 6 × 3
+  species length depth
+  &lt;fct&gt;    &lt;dbl&gt; &lt;dbl&gt;
+1 Adelie    39.1  18.7
+2 Adelie    39.5  17.4
+3 Adelie    40.3  18  
+4 Adelie    NA    NA  
+5 Adelie    36.7  19.3
+6 Adelie    39.3  20.6</code></pre>
+<p>And make sure the original data is unchanged using the <code>dim()</code> function (short for dimensions), which should show us that we still have 344 observations of 8 variables:</p>
+<pre class="r"><code>dim(penguins)</code></pre>
+<pre><code>[1] 344   8</code></pre>
+<p><code>select()</code> can be used in many different ways that we do not have time for now. But briefly, note that we could have gotten the same resulting data frame by specifying which variables we <strong>didn’t</strong> want to include using <code>-</code> before the variable name:</p>
+<pre class="r"><code>select(penguins, -island, -flipper_length_mm, -body_mass_g, -sex, -year)</code></pre>
+<pre><code># A tibble: 344 × 3
+   species bill_length_mm bill_depth_mm
+   &lt;fct&gt;            &lt;dbl&gt;         &lt;dbl&gt;
+ 1 Adelie            39.1          18.7
+ 2 Adelie            39.5          17.4
+ 3 Adelie            40.3          18  
+ 4 Adelie            NA            NA  
+ 5 Adelie            36.7          19.3
+ 6 Adelie            39.3          20.6
+ 7 Adelie            38.9          17.8
+ 8 Adelie            39.2          19.6
+ 9 Adelie            34.1          18.1
+10 Adelie            42            20.2
+# … with 334 more rows</code></pre>
+</div>
+<div id="mutate" class="section level3">
+<h3><code>mutate</code></h3>
+<p>We will often want to perform some sort of transformation on our data. For instance, converting a variable in to different units, or performing a log transformation. As with <code>select()</code>, <code>mutate()</code> takes the data frame we want to manipulate as the first argument, followed by an expression containing the instructions for what we want to achieve. Let’s use <code>mutate()</code> to convert <code>body_mass_g</code> in to kilograms.</p>
+<pre class="r"><code>mutate(penguins, body_mass_g/1000)</code></pre>
+<pre><code># A tibble: 344 × 9
+   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Adelie  Torgersen           39.1          18.7               181        3750
+ 2 Adelie  Torgersen           39.5          17.4               186        3800
+ 3 Adelie  Torgersen           40.3          18                 195        3250
+ 4 Adelie  Torgersen           NA            NA                  NA          NA
+ 5 Adelie  Torgersen           36.7          19.3               193        3450
+ 6 Adelie  Torgersen           39.3          20.6               190        3650
+ 7 Adelie  Torgersen           38.9          17.8               181        3625
+ 8 Adelie  Torgersen           39.2          19.6               195        4675
+ 9 Adelie  Torgersen           34.1          18.1               193        3475
+10 Adelie  Torgersen           42            20.2               190        4250
+# … with 334 more rows, and 3 more variables: sex &lt;fct&gt;, year &lt;int&gt;,
+#   body_mass_g/1000 &lt;dbl&gt;</code></pre>
+<p>We now have a new column <code>body_mass_g/1000</code> in the data frame. However, as we did not assign the output of <code>mutate()</code> to an object, we cannot access these results. <code>body_mass_g/1000</code> is also a messy variable name. We can designate a name for the new variable in <code>mutate()</code> with the <code>=</code> symbol and assign the output of <code>mutate()</code> to a new object. <code>mutate()</code> can be used to create more than one new variable at a time, by separating each new variable by a comma. To make the code easier to read we can also write each on a new line.</p>
+<pre class="r"><code>penguins_kg &lt;- mutate(penguins, 
+                      body_mass_kg = body_mass_g/1000,
+                      bill_area = bill_length_mm * bill_depth_mm)</code></pre>
+</div>
+<div id="filter" class="section level3">
+<h3><code>filter</code></h3>
+<p>We can use <code>filter()</code> to subset the data to include only rows which meet conditions that we choose. To specify conditions we need to become familiar with using relational and logical operators.</p>
+<ul>
+<li>Relational operators are used to compare between variables such as:
+<ul>
+<li><code>x &lt; y</code>: is x less than y</li>
+<li><code>x &lt;= y</code>: is x less than or equal to y</li>
+<li><code>x &gt; y</code>: is x more than y</li>
+<li><code>x &gt;= y</code>: is x more than or equal to y</li>
+<li><code>x == y</code>: is x equal to y</li>
+<li><code>x != y</code>: is x not equal to y</li>
+</ul></li>
+</ul>
+<p>Be careful to note that <code>==</code> is not the same as <code>=</code>. In <code>R</code> the single equals (<code>=</code>) is often used within functions, whereas the double equals (<code>==</code>) is used to test for equivalence (i.e. how you might normally think of <code>=</code> symbol).</p>
+<ul>
+<li>Logical operators
+<ul>
+<li><code>x | y</code>: is x OR y true?</li>
+<li><code>x &amp; y</code>: are x AND y true?</li>
+</ul></li>
+</ul>
+<p>Perhaps we are only interested in female penguins? Again, <code>filter()</code> takes the data frame we are to manipulate as its first argument, followed by the conditions which must be met for inclusion.</p>
+<pre class="r"><code>filter(penguins, sex == &#39;female&#39;)</code></pre>
+<pre><code># A tibble: 165 × 8
+   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Adelie  Torgersen           39.5          17.4               186        3800
+ 2 Adelie  Torgersen           40.3          18                 195        3250
+ 3 Adelie  Torgersen           36.7          19.3               193        3450
+ 4 Adelie  Torgersen           38.9          17.8               181        3625
+ 5 Adelie  Torgersen           41.1          17.6               182        3200
+ 6 Adelie  Torgersen           36.6          17.8               185        3700
+ 7 Adelie  Torgersen           38.7          19                 195        3450
+ 8 Adelie  Torgersen           34.4          18.4               184        3325
+ 9 Adelie  Biscoe              37.8          18.3               174        3400
+10 Adelie  Biscoe              35.9          19.2               189        3800
+# … with 155 more rows, and 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
+<p>Or… maybe we are interested in all penguins with a flipper length greater than 200mm?</p>
+<pre class="r"><code>filter(penguins, flipper_length_mm &gt; 200)</code></pre>
+<pre><code># A tibble: 148 × 8
+   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Adelie  Dream               35.7          18                 202        3550
+ 2 Adelie  Dream               41.1          18.1               205        4300
+ 3 Adelie  Dream               40.8          18.9               208        4300
+ 4 Adelie  Biscoe              41            20                 203        4725
+ 5 Adelie  Torgersen           41.4          18.5               202        3875
+ 6 Adelie  Torgersen           44.1          18                 210        4000
+ 7 Adelie  Dream               41.5          18.5               201        4000
+ 8 Gentoo  Biscoe              46.1          13.2               211        4500
+ 9 Gentoo  Biscoe              50            16.3               230        5700
+10 Gentoo  Biscoe              48.7          14.1               210        4450
+# … with 138 more rows, and 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
+<p>Finally, we can combine conditions. For instance, if we want to subset the data for male Adelie penguins we separate each condition with a comma.</p>
+<pre class="r"><code>filter(penguins, species == &#39;Adelie&#39;, sex == &#39;male&#39;)</code></pre>
+<pre><code># A tibble: 73 × 8
+   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Adelie  Torgersen           39.1          18.7               181        3750
+ 2 Adelie  Torgersen           39.3          20.6               190        3650
+ 3 Adelie  Torgersen           39.2          19.6               195        4675
+ 4 Adelie  Torgersen           38.6          21.2               191        3800
+ 5 Adelie  Torgersen           34.6          21.1               198        4400
+ 6 Adelie  Torgersen           42.5          20.7               197        4500
+ 7 Adelie  Torgersen           46            21.5               194        4200
+ 8 Adelie  Biscoe              37.7          18.7               180        3600
+ 9 Adelie  Biscoe              38.2          18.1               185        3950
+10 Adelie  Biscoe              38.8          17.2               180        3800
+# … with 63 more rows, and 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
+<p>We can also specify logical conditions to combine criteria. Let’s say we want to only look at penguins with really big or really small bills. We use the <code>|</code> (OR) operator in the call to <code>filter()</code>. Remember that if we want to save the new ‘filtered’ data frame we have to assign the results to a new object.</p>
+<pre class="r"><code>extreme_bills &lt;- filter(penguins_kg, bill_area &gt; 800 | bill_area &lt; 660)</code></pre>
+</div>
+<div id="or-the-pipe" class="section level3">
+<h3><code>%&gt;%</code> or <code>|&gt;</code>: the pipe</h3>
+<p>What if we want to <code>select()</code> only a few of the variables, <code>mutate()</code> the data and <code>filter()</code>? The ‘pipe’ symbol <code>%&gt;%</code> or <code>|&gt;</code> allows us to link multiple functions together in a few lines of code in a way that is easily readable.</p>
+<p>We can think of how <code>%&gt;%</code> works as "take the thing on the left hand side (i.e. a data frame), and perform the thing on the right.</p>
+<p>For instance, we can filter our <code>penguins</code> data frame by putting it through the <code>%&gt;%</code>. Note that we no longer have to specify the data frame as the first argument in <code>filter()</code>:</p>
+<pre class="r"><code>penguins %&gt;% filter(species == &#39;Adelie&#39;, sex == &#39;male&#39;)</code></pre>
+<pre><code># A tibble: 73 × 8
+   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Adelie  Torgersen           39.1          18.7               181        3750
+ 2 Adelie  Torgersen           39.3          20.6               190        3650
+ 3 Adelie  Torgersen           39.2          19.6               195        4675
+ 4 Adelie  Torgersen           38.6          21.2               191        3800
+ 5 Adelie  Torgersen           34.6          21.1               198        4400
+ 6 Adelie  Torgersen           42.5          20.7               197        4500
+ 7 Adelie  Torgersen           46            21.5               194        4200
+ 8 Adelie  Biscoe              37.7          18.7               180        3600
+ 9 Adelie  Biscoe              38.2          18.1               185        3950
+10 Adelie  Biscoe              38.8          17.2               180        3800
+# … with 63 more rows, and 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
+<p>Now lets combine <code>dplyr</code> functions to first <code>mutate()</code> the data to create a new variable called <code>scaled_flipper</code>, and then <code>filter()</code> the data based on this new variable.</p>
+<pre class="r"><code>penguins %&gt;% 
+  mutate(scaled_flipper = flipper_length_mm/body_mass_g) %&gt;% 
+  filter(scaled_flipper &gt; 0.05)</code></pre>
+<pre><code># A tibble: 147 × 9
+   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Adelie  Torgersen           40.3          18                 195        3250
+ 2 Adelie  Torgersen           36.7          19.3               193        3450
+ 3 Adelie  Torgersen           39.3          20.6               190        3650
+ 4 Adelie  Torgersen           34.1          18.1               193        3475
+ 5 Adelie  Torgersen           37.8          17.1               186        3300
+ 6 Adelie  Torgersen           41.1          17.6               182        3200
+ 7 Adelie  Torgersen           38.6          21.2               191        3800
+ 8 Adelie  Torgersen           38.7          19                 195        3450
+ 9 Adelie  Torgersen           34.4          18.4               184        3325
+10 Adelie  Biscoe              37.8          18.3               174        3400
+# … with 137 more rows, and 3 more variables: sex &lt;fct&gt;, year &lt;int&gt;,
+#   scaled_flipper &lt;dbl&gt;</code></pre>
+<p>You can see that we can put each function on a new line. <code>R</code> will take the <code>penguins</code> data, and first perform our <code>mutate()</code> function, and afterwards perform the <code>filter()</code>. If we were to try and perform the <code>filter()</code> first we would get an error message as the new new variable created by <code>mutate()</code> doesn’t exist yet:</p>
+<pre class="r"><code>penguins %&gt;% 
+  filter(scaled_flipper &gt; 0.05) %&gt;% 
+  mutate(scaled_flipper = flipper_length_mm/body_mass_g)</code></pre>
+<pre><code>Error: Problem with `filter()` input `..1`.
+ℹ Input `..1` is `scaled_flipper &gt; 0.05`.
+x object &#39;scaled_flipper&#39; not found</code></pre>
+</div>
+<div id="group_by-and-summarise" class="section level3">
+<h3><code>group_by</code> and <code>summarise</code></h3>
+<p>The functions <code>group_by()</code> and <code>summarise()</code> are often useful in combination and will help us demonstrate some <code>dplyr</code> functionality. By combining these two functions we can get manipulate our data frame to get some descriptive statistics about our penguin data. For instance, we might want to know the mean weight of penguins from each species. As with all the <code>dplyr</code> functions, both <code>group_by()</code> and <code>summarise()</code> need the data frame as the first argument unless we are using pipes.</p>
+<pre class="r"><code>penguins %&gt;% 
+  group_by(species) %&gt;% 
+  summarise(mn_weight = mean(body_mass_g))</code></pre>
+<pre><code># A tibble: 3 × 2
+  species   mn_weight
+  &lt;fct&gt;         &lt;dbl&gt;
+1 Adelie          NA 
+2 Chinstrap     3733.
+3 Gentoo          NA </code></pre>
+<p>Why are the values for <code>Adelie</code> and <code>Gentoo</code> ‘<code>NA</code>’? We’ve come across a problem with how the <code>mean()</code> function is treating missing values (<code>NA</code>’s) in the data.</p>
+<pre class="r"><code>penguins %&gt;% 
+  group_by(species) %&gt;% 
+  summarise(mn_weight = mean(body_mass_g, na.rm = TRUE))</code></pre>
+<pre><code># A tibble: 3 × 2
+  species   mn_weight
+  &lt;fct&gt;         &lt;dbl&gt;
+1 Adelie        3701.
+2 Chinstrap     3733.
+3 Gentoo        5076.</code></pre>
+</div>
+</div>
+<div id="ggplot2" class="section level2">
+<h2><code>ggplot2</code></h2>
+<p>Now we’ve learned how to laod our data in to <code>R</code>, inspect the data, and manipulate the data frame, it’s time to start making some graphs! <code>R</code> is <strong>very</strong> good for making high quality figures. As with many things in <code>R</code> there are a million and one ways to approach the same problem and it is often a matter of personal preference which way to do things. You can make plots in <code>Base R</code> but here we’ll introduce using <code>ggplot2</code>, which is another part of the <code>tidyverse</code>.</p>
+<p>The <code>gg</code> in <code>ggplot2</code> stands for ‘<strong>g</strong>rammar of <strong>g</strong>raphics’. When using <code>ggplot2</code>, we have to specify:</p>
+<ul>
+<li><code>data</code></li>
+<li><code>aes</code> (short for ‘aesthetics’)</li>
+<li><code>geom</code> (short for geometry)</li>
+</ul>
+<p><code>ggplot2</code> works by adding the various layers of your plot on top of each other. We do this by first calling the <code>ggplot</code> function, which like all <code>tidyverse</code> functions, takes the <code>data</code> as its first argument. Then we set the <code>aes</code>thetics we want to visualise, and then add <code>geom</code> layers with the <code>+</code> symbol. To illustrate what all this means lets look at a scatterplot of the penguin data.</p>
+<pre class="r"><code>ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm, colour = species)) +
+  geom_point()</code></pre>
+<pre><code>Warning: Removed 2 rows containing missing values (geom_point).</code></pre>
+<p><img src="figure/First_session.rmd/unnamed-chunk-60-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>First we use the <code>ggplot</code> function and specify the data (<code>penguins</code>) to be used. Then we tell <code>ggplot</code> what aesthetics (<code>aes</code>) we want. We want <code>body_mass_g</code> on the x-axis, <code>bill_length_mm</code> on the y-axis, and points coloured according to <code>species.</code> Finally, we want to draw a scatterplot so we specify the <code>geom</code> as <code>geom_point</code>.</p>
+<p>Not bad… but this is hardly ready for submitting to a journal for publication. The axis titles are ugly and the default colour choices are no good for certain kinds of colourblindess - and we want as many people to be able to interpret our figure as possible right? Maybe we don’t like the grey background either.</p>
+<p>We can start building on our original plot by adding more layers. We’ll use <code>labs</code> to manually decide on the axis labels, and we can use <code>scale_colour_...</code> to change the colour of points. Here I have used <code>scale_colour_...</code> as there are multiple different <code>scale_colour_...</code> arguments. The last argument we’ve added is <code>theme_bw()</code> (where <code>bw</code> stands for black and white), which changes the overall ‘theme’ of the plotting window. There are many themes available, and you can additionally change almost any aspects of your plots manually.</p>
+<pre class="r"><code>ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm, colour = species)) +
+  geom_point() +
+  labs(x = &#39;Body mass (g)&#39;, y = &#39;Bill length (mm)&#39;) + 
+  scale_colour_viridis_d() +
+  theme_bw()</code></pre>
+<pre><code>Warning: Removed 2 rows containing missing values (geom_point).</code></pre>
+<p><img src="figure/First_session.rmd/unnamed-chunk-62-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>To show just how much you can customise your graphics lets try an extreme example…</p>
+<pre class="r"><code>ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm, colour = species)) +
+  geom_point() +
+  labs(x = &#39;Body mass (g)&#39;, y = &#39;Bill length (mm)&#39;) + 
+  scale_colour_viridis_d() +
+  theme(legend.position = &#39;top&#39;,
+        legend.title = element_text(face = &#39;bold&#39;, angle = 45),
+        axis.title.x = element_text(colour = &#39;dodgerblue&#39;, angle = 45, size = 15),
+        axis.title.y = element_text(colour = &#39;green&#39;, angle = 200, size = 15),
+        axis.text = element_text(angle = 135, size = 15, colour = &#39;red&#39;),
+        panel.background = element_rect(fill = &quot;lightblue&quot;,
+                                        size = 0.5, linetype = &quot;solid&quot;),
+        panel.grid.major = element_line(size = 1.5, linetype = &#39;solid&#39;,
+                                        colour = &quot;hotpink&quot;), 
+        panel.grid.minor = element_line(size = 0.25, linetype = &#39;dashed&#39;,
+                                        colour = &quot;purple&quot;)
+        )</code></pre>
+<pre><code>Warning: Removed 2 rows containing missing values (geom_point).</code></pre>
+<p><img src="figure/First_session.rmd/unnamed-chunk-64-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="plotting-in-base-r" class="section level1">
+<h1>Plotting in <code>Base R</code></h1>
+<p>One of the most powerful and appealing aspects of using R is the ability to make professional quality figures relatively easily, with huge flexibility. It is worth pointing out briefly some of the plotting tools available with your base installation of <code>R</code> before moving on to using <code>ggplot2</code>. You can essentially make a figure look however you want; you can even plot your data as <a href="https://github.com/Gibbsdavidl/CatterPlots">cats, smiley faces or rainbows…</a></p>
+<div id="hist" class="section level2">
+<h2><code>hist</code></h2>
+<p><code>hist</code> is a really useful plotting tool to quickly plot histograms. This is particularly useful when you want to look at the distribution of values, for instance when checking that the assumption of normality holds for your linear models. To access a variable from a data frame we use the <code>$</code> after the data frame.</p>
+<pre class="r"><code>hist(diet_data$height)</code></pre>
+<p><img src="figure/First_session.rmd/unnamed-chunk-66-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Manually specifying the <code>breaks =</code> argument can be important when plotting histograms as using the wrong ‘bin’ size can hide underlying structure in the data.</p>
+<pre class="r"><code>hist(diet_data$height, breaks = 25)</code></pre>
+<p><img src="figure/First_session.rmd/unnamed-chunk-67-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="plot" class="section level2">
+<h2><code>plot</code></h2>
+<p>We can make a simple scatter plot with the <code>plot</code> function. As with many functions, <code>plot</code> can be used in different ways, take different arguments and will plot different things depending on the input.</p>
+<pre class="r"><code>plot(diet_data$height, diet_data$weight)</code></pre>
+<p><img src="figure/First_session.rmd/unnamed-chunk-68-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>We can customise the look of plots almost endlessly.</p>
+<pre class="r"><code>plot(diet_data$height, diet_data$weight,
+     col = c(&#39;red&#39;, &#39;green&#39;),
+     pch = 16,
+     main = &#39;Height (cm) vs. Weight (kg)&#39;,
+     xlab = &#39;Height (cm)&#39;, ylab = &#39;Weight (kg)&#39;)</code></pre>
+<p><img src="figure/First_session.rmd/unnamed-chunk-69-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="boxplot" class="section level2">
+<h2><code>boxplot</code></h2>
+<p>Boxplots are good for comparing continuous variables between two or more groups.</p>
+<pre class="r"><code>boxplot(diet_data$weight ~ diet_data$diet,
+     col = c(&#39;red&#39;, &#39;green&#39;),
+     main = &#39;Effect of diet treatment on weight&#39;,
+     xlab = &#39;Diet treatment&#39;, ylab = &#39;Weight (kg)&#39;)</code></pre>
+<p><img src="figure/First_session.rmd/unnamed-chunk-70-1.png" width="672" style="display: block; margin: auto;" /></p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.0.3 (2020-10-10)
+Platform: x86_64-apple-darwin17.0 (64-bit)
+Running under: macOS Big Sur 10.16
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_GB.UTF-8/en_GB.UTF-8/en_GB.UTF-8/C/en_GB.UTF-8/en_GB.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] palmerpenguins_0.1.0 forcats_0.5.1        stringr_1.4.0       
+ [4] dplyr_1.0.7          purrr_0.3.4          readr_2.0.1         
+ [7] tidyr_1.1.4          tibble_3.1.5         ggplot2_3.3.5       
+[10] tidyverse_1.3.1      workflowr_1.6.2     
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_1.0.7        lubridate_1.7.10  assertthat_0.2.1  rprojroot_2.0.2  
+ [5] digest_0.6.28     utf8_1.2.2        R6_2.5.1          cellranger_1.1.0 
+ [9] backports_1.2.1   reprex_2.0.1      evaluate_0.14     httr_1.4.2       
+[13] highr_0.9         pillar_1.6.4      rlang_0.4.12      readxl_1.3.1     
+[17] rstudioapi_0.13   whisker_0.4       jquerylib_0.1.4   rmarkdown_2.10   
+[21] labeling_0.4.2    munsell_0.5.0     broom_0.7.9       compiler_4.0.3   
+[25] httpuv_1.6.2      modelr_0.1.8      xfun_0.25         pkgconfig_2.0.3  
+[29] htmltools_0.5.1.1 tidyselect_1.1.1  viridisLite_0.4.0 fansi_0.5.0      
+[33] crayon_1.4.2      tzdb_0.1.2        dbplyr_2.1.1      withr_2.4.2      
+[37] later_1.3.0       grid_4.0.3        jsonlite_1.7.2    gtable_0.3.0     
+[41] lifecycle_1.0.1   DBI_1.1.1         git2r_0.28.0      magrittr_2.0.1   
+[45] scales_1.1.1      cli_3.1.0         stringi_1.7.5     farver_2.1.0     
+[49] fs_1.5.0          promises_1.2.0.1  xml2_1.3.2        bslib_0.2.5.1    
+[53] ellipsis_0.3.2    generics_0.1.1    vctrs_0.3.8       tools_4.0.3      
+[57] glue_1.5.0        hms_1.1.0         yaml_2.2.1        colorspace_2.0-2 
+[61] rvest_1.0.1       knitr_1.33        haven_2.4.3       sass_0.4.0       </code></pre>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
