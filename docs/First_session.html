@@ -37,6 +37,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
 <link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
@@ -340,7 +342,13 @@ div.tocify {
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/MartinGarlovsky/Introduction2Rstudio">
+    <span class="fa fa-github"></span>
+     
+    Source code
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -468,16 +476,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong51276f2"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> 51276f2 </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMartinGarlovskyIntroduction2Rstudiotree9ec9bd0862a204b2429fdbb87060faf2a7bce421targetblank9ec9bd0a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MartinGarlovsky/Introduction2Rstudio/tree/9ec9bd0862a204b2429fdbb87060faf2a7bce421" target="_blank">9ec9bd0</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrong51276f2" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomMartinGarlovskyIntroduction2Rstudiotree9ec9bd0862a204b2429fdbb87060faf2a7bce421targetblank9ec9bd0a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version 51276f2. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/MartinGarlovsky/Introduction2Rstudio/tree/9ec9bd0862a204b2429fdbb87060faf2a7bce421" target="_blank">9ec9bd0</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -489,11 +497,15 @@ Ignored files:
     Ignored:    .Rproj.user/
 
 Untracked files:
+    Untracked:  README.html
     Untracked:  data/bumblebee_data.csv
     Untracked:  data/bumblebee_data.txt
     Untracked:  output/bad_ggplot.pdf
     Untracked:  output/first_ggplot.pdf
     Untracked:  output/second_ggplot.pdf
+
+Unstaged changes:
+    Modified:   README.md
 
 </code></pre>
 <p>
@@ -537,7 +549,41 @@ Message
 Rmd
 </td>
 <td>
-51276f2
+<a href="https://github.com/MartinGarlovsky/Introduction2Rstudio/blob/9ec9bd0862a204b2429fdbb87060faf2a7bce421/analysis/First_session.rmd" target="_blank">9ec9bd0</a>
+</td>
+<td>
+MartinGarlovsky
+</td>
+<td>
+2021-11-19
+</td>
+<td>
+wflow_publish(“analysis/First_session.rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/MartinGarlovsky/Introduction2Rstudio/ccad3074c7afc378215559cf6e1358212eb60fe4/docs/First_session.html" target="_blank">ccad307</a>
+</td>
+<td>
+MartinGarlovsky
+</td>
+<td>
+2021-11-19
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MartinGarlovsky/Introduction2Rstudio/blob/51276f22c926eb9a6e290de3d03145008b8255d7/analysis/First_session.rmd" target="_blank">51276f2</a>
 </td>
 <td>
 MartinGarlovsky
@@ -563,16 +609,14 @@ wflow_publish(“analysis/First_session.rmd”)
 <h3>Outline for the course</h3>
 <ul>
 <li>Downloading and installing <code>R</code> and <code>R studio</code></li>
-<li>A first <code>R</code> session
-<ul>
-<li>basic arithmetic</li>
+<li>Basic arithmetic</li>
 <li>Objects</li>
 <li>Functions</li>
 <li>Vectors</li>
 <li>Data frames</li>
-<li>Basic plotting</li>
+<li>Scripts</li>
+<li>Loading data</li>
 <li>Packages</li>
-</ul></li>
 <li>The <code>tidyverse</code></li>
 </ul>
 </div>
@@ -813,6 +857,43 @@ plot(diet_data$height, diet_data$weight,
      las = 2 # we can change the orientation of the axis labels which is a bit odd in this case...
      )</code></pre>
 <p><img src="figure/First_session.rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-29-1">
+Past versions of unnamed-chunk-29-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-29-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MartinGarlovsky/Introduction2Rstudio/blob/ccad3074c7afc378215559cf6e1358212eb60fe4/docs/figure/First_session.rmd/unnamed-chunk-29-1.png" target="_blank">ccad307</a>
+</td>
+<td>
+MartinGarlovsky
+</td>
+<td>
+2021-11-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code># We&#39;ve not covered any statistics yet so this code is commented out
 #cor.test(diet_data$height, diet_data$weight)</code></pre>
 </div>
@@ -1207,6 +1288,43 @@ x object &#39;scaled_flipper&#39; not found</code></pre>
   geom_point()</code></pre>
 <pre><code>Warning: Removed 2 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/First_session.rmd/unnamed-chunk-60-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-60-1">
+Past versions of unnamed-chunk-60-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-60-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MartinGarlovsky/Introduction2Rstudio/blob/ccad3074c7afc378215559cf6e1358212eb60fe4/docs/figure/First_session.rmd/unnamed-chunk-60-1.png" target="_blank">ccad307</a>
+</td>
+<td>
+MartinGarlovsky
+</td>
+<td>
+2021-11-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>First we use the <code>ggplot</code> function and specify the data (<code>penguins</code>) to be used. Then we tell <code>ggplot</code> what aesthetics (<code>aes</code>) we want. We want <code>body_mass_g</code> on the x-axis, <code>bill_length_mm</code> on the y-axis, and points coloured according to <code>species.</code> Finally, we want to draw a scatterplot so we specify the <code>geom</code> as <code>geom_point</code>.</p>
 <p>Not bad… but this is hardly ready for submitting to a journal for publication. The axis titles are ugly and the default colour choices are no good for certain kinds of colourblindess - and we want as many people to be able to interpret our figure as possible right? Maybe we don’t like the grey background either.</p>
 <p>We can start building on our original plot by adding more layers. We’ll use <code>labs</code> to manually decide on the axis labels, and we can use <code>scale_colour_...</code> to change the colour of points. Here I have used <code>scale_colour_...</code> as there are multiple different <code>scale_colour_...</code> arguments. The last argument we’ve added is <code>theme_bw()</code> (where <code>bw</code> stands for black and white), which changes the overall ‘theme’ of the plotting window. There are many themes available, and you can additionally change almost any aspects of your plots manually.</p>
@@ -1217,9 +1335,47 @@ x object &#39;scaled_flipper&#39; not found</code></pre>
   theme_bw()</code></pre>
 <pre><code>Warning: Removed 2 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/First_session.rmd/unnamed-chunk-62-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-62-1">
+Past versions of unnamed-chunk-62-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-62-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MartinGarlovsky/Introduction2Rstudio/blob/ccad3074c7afc378215559cf6e1358212eb60fe4/docs/figure/First_session.rmd/unnamed-chunk-62-1.png" target="_blank">ccad307</a>
+</td>
+<td>
+MartinGarlovsky
+</td>
+<td>
+2021-11-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>To show just how much you can customise your graphics lets try an extreme example…</p>
-<pre class="r"><code>ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm, colour = species)) +
-  geom_point() +
+<pre class="r"><code>ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm)) +
+  geom_point(aes(colour = species)) +
+  geom_smooth(aes(lty = island), colour = &#39;orange&#39;) +
   labs(x = &#39;Body mass (g)&#39;, y = &#39;Bill length (mm)&#39;) + 
   scale_colour_viridis_d() +
   theme(legend.position = &#39;top&#39;,
@@ -1234,8 +1390,47 @@ x object &#39;scaled_flipper&#39; not found</code></pre>
         panel.grid.minor = element_line(size = 0.25, linetype = &#39;dashed&#39;,
                                         colour = &quot;purple&quot;)
         )</code></pre>
+<pre><code>`geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<pre><code>Warning: Removed 2 rows containing non-finite values (stat_smooth).</code></pre>
 <pre><code>Warning: Removed 2 rows containing missing values (geom_point).</code></pre>
-<p><img src="figure/First_session.rmd/unnamed-chunk-64-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/First_session.rmd/unnamed-chunk-64-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-64-1">
+Past versions of unnamed-chunk-64-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-64-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MartinGarlovsky/Introduction2Rstudio/blob/ccad3074c7afc378215559cf6e1358212eb60fe4/docs/figure/First_session.rmd/unnamed-chunk-64-1.png" target="_blank">ccad307</a>
+</td>
+<td>
+MartinGarlovsky
+</td>
+<td>
+2021-11-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div id="plotting-in-base-r" class="section level1">
@@ -1246,15 +1441,126 @@ x object &#39;scaled_flipper&#39; not found</code></pre>
 <p><code>hist</code> is a really useful plotting tool to quickly plot histograms. This is particularly useful when you want to look at the distribution of values, for instance when checking that the assumption of normality holds for your linear models. To access a variable from a data frame we use the <code>$</code> after the data frame.</p>
 <pre class="r"><code>hist(diet_data$height)</code></pre>
 <p><img src="figure/First_session.rmd/unnamed-chunk-66-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-66-1">
+Past versions of unnamed-chunk-66-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-66-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MartinGarlovsky/Introduction2Rstudio/blob/ccad3074c7afc378215559cf6e1358212eb60fe4/docs/figure/First_session.rmd/unnamed-chunk-66-1.png" target="_blank">ccad307</a>
+</td>
+<td>
+MartinGarlovsky
+</td>
+<td>
+2021-11-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Manually specifying the <code>breaks =</code> argument can be important when plotting histograms as using the wrong ‘bin’ size can hide underlying structure in the data.</p>
 <pre class="r"><code>hist(diet_data$height, breaks = 25)</code></pre>
 <p><img src="figure/First_session.rmd/unnamed-chunk-67-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-67-1">
+Past versions of unnamed-chunk-67-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-67-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MartinGarlovsky/Introduction2Rstudio/blob/ccad3074c7afc378215559cf6e1358212eb60fe4/docs/figure/First_session.rmd/unnamed-chunk-67-1.png" target="_blank">ccad307</a>
+</td>
+<td>
+MartinGarlovsky
+</td>
+<td>
+2021-11-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="plot" class="section level2">
 <h2><code>plot</code></h2>
 <p>We can make a simple scatter plot with the <code>plot</code> function. As with many functions, <code>plot</code> can be used in different ways, take different arguments and will plot different things depending on the input.</p>
 <pre class="r"><code>plot(diet_data$height, diet_data$weight)</code></pre>
 <p><img src="figure/First_session.rmd/unnamed-chunk-68-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-68-1">
+Past versions of unnamed-chunk-68-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-68-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MartinGarlovsky/Introduction2Rstudio/blob/ccad3074c7afc378215559cf6e1358212eb60fe4/docs/figure/First_session.rmd/unnamed-chunk-68-1.png" target="_blank">ccad307</a>
+</td>
+<td>
+MartinGarlovsky
+</td>
+<td>
+2021-11-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>We can customise the look of plots almost endlessly.</p>
 <pre class="r"><code>plot(diet_data$height, diet_data$weight,
      col = c(&#39;red&#39;, &#39;green&#39;),
@@ -1262,6 +1568,43 @@ x object &#39;scaled_flipper&#39; not found</code></pre>
      main = &#39;Height (cm) vs. Weight (kg)&#39;,
      xlab = &#39;Height (cm)&#39;, ylab = &#39;Weight (kg)&#39;)</code></pre>
 <p><img src="figure/First_session.rmd/unnamed-chunk-69-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-69-1">
+Past versions of unnamed-chunk-69-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-69-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MartinGarlovsky/Introduction2Rstudio/blob/ccad3074c7afc378215559cf6e1358212eb60fe4/docs/figure/First_session.rmd/unnamed-chunk-69-1.png" target="_blank">ccad307</a>
+</td>
+<td>
+MartinGarlovsky
+</td>
+<td>
+2021-11-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="boxplot" class="section level2">
 <h2><code>boxplot</code></h2>
@@ -1271,6 +1614,43 @@ x object &#39;scaled_flipper&#39; not found</code></pre>
      main = &#39;Effect of diet treatment on weight&#39;,
      xlab = &#39;Diet treatment&#39;, ylab = &#39;Weight (kg)&#39;)</code></pre>
 <p><img src="figure/First_session.rmd/unnamed-chunk-70-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-70-1">
+Past versions of unnamed-chunk-70-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-70-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MartinGarlovsky/Introduction2Rstudio/blob/ccad3074c7afc378215559cf6e1358212eb60fe4/docs/figure/First_session.rmd/unnamed-chunk-70-1.png" target="_blank">ccad307</a>
+</td>
+<td>
+MartinGarlovsky
+</td>
+<td>
+2021-11-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1300,22 +1680,24 @@ other attached packages:
 [10] tidyverse_1.3.1      workflowr_1.6.2     
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.7        lubridate_1.7.10  assertthat_0.2.1  rprojroot_2.0.2  
- [5] digest_0.6.28     utf8_1.2.2        R6_2.5.1          cellranger_1.1.0 
- [9] backports_1.2.1   reprex_2.0.1      evaluate_0.14     httr_1.4.2       
-[13] highr_0.9         pillar_1.6.4      rlang_0.4.12      readxl_1.3.1     
-[17] rstudioapi_0.13   whisker_0.4       jquerylib_0.1.4   rmarkdown_2.10   
-[21] labeling_0.4.2    munsell_0.5.0     broom_0.7.9       compiler_4.0.3   
-[25] httpuv_1.6.2      modelr_0.1.8      xfun_0.25         pkgconfig_2.0.3  
-[29] htmltools_0.5.1.1 tidyselect_1.1.1  viridisLite_0.4.0 fansi_0.5.0      
-[33] crayon_1.4.2      tzdb_0.1.2        dbplyr_2.1.1      withr_2.4.2      
-[37] later_1.3.0       grid_4.0.3        jsonlite_1.7.2    gtable_0.3.0     
-[41] lifecycle_1.0.1   DBI_1.1.1         git2r_0.28.0      magrittr_2.0.1   
-[45] scales_1.1.1      cli_3.1.0         stringi_1.7.5     farver_2.1.0     
-[49] fs_1.5.0          promises_1.2.0.1  xml2_1.3.2        bslib_0.2.5.1    
-[53] ellipsis_0.3.2    generics_0.1.1    vctrs_0.3.8       tools_4.0.3      
-[57] glue_1.5.0        hms_1.1.0         yaml_2.2.1        colorspace_2.0-2 
-[61] rvest_1.0.1       knitr_1.33        haven_2.4.3       sass_0.4.0       </code></pre>
+ [1] Rcpp_1.0.7        lattice_0.20-44   lubridate_1.7.10  assertthat_0.2.1 
+ [5] rprojroot_2.0.2   digest_0.6.28     utf8_1.2.2        R6_2.5.1         
+ [9] cellranger_1.1.0  backports_1.2.1   reprex_2.0.1      evaluate_0.14    
+[13] httr_1.4.2        highr_0.9         pillar_1.6.4      rlang_0.4.12     
+[17] readxl_1.3.1      rstudioapi_0.13   whisker_0.4       jquerylib_0.1.4  
+[21] Matrix_1.3-4      rmarkdown_2.10    splines_4.0.3     labeling_0.4.2   
+[25] munsell_0.5.0     broom_0.7.9       compiler_4.0.3    httpuv_1.6.2     
+[29] modelr_0.1.8      xfun_0.25         pkgconfig_2.0.3   mgcv_1.8-36      
+[33] htmltools_0.5.1.1 tidyselect_1.1.1  viridisLite_0.4.0 fansi_0.5.0      
+[37] crayon_1.4.2      tzdb_0.1.2        dbplyr_2.1.1      withr_2.4.2      
+[41] later_1.3.0       grid_4.0.3        nlme_3.1-152      jsonlite_1.7.2   
+[45] gtable_0.3.0      lifecycle_1.0.1   DBI_1.1.1         git2r_0.28.0     
+[49] magrittr_2.0.1    scales_1.1.1      cli_3.1.0         stringi_1.7.5    
+[53] farver_2.1.0      fs_1.5.0          promises_1.2.0.1  xml2_1.3.2       
+[57] bslib_0.2.5.1     ellipsis_0.3.2    generics_0.1.1    vctrs_0.3.8      
+[61] tools_4.0.3       glue_1.5.0        hms_1.1.0         yaml_2.2.1       
+[65] colorspace_2.0-2  rvest_1.0.1       knitr_1.33        haven_2.4.3      
+[69] sass_0.4.0       </code></pre>
 </div>
 </div>
 </div>
