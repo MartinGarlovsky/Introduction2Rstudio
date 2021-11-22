@@ -8,4 +8,6 @@ editor_options:
   chunk_output_type: console
 ---
 
-Welcome to my research website.
+Welcome to the Introduction to `R studio`
+
+### [1. First session](First_session.html)
