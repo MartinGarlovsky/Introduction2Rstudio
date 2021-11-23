@@ -11,3 +11,5 @@ editor_options:
 In the following classes we will be learning how to use `R` and `R studio` for data analysis. This will be a short introduction with the aim of getting you all familiar with the basics of how to use `R` for data management, exploring data, performing statistics, and plotting. There is a lot to learn in this short time but if you ever have any queries feel free to send me an [email](martin.garlovsky@tu-dresden.de) or find me in the Biology Building - room 258. 
 
 ### [1. First session](First_session.html)
+
+### [2. Epidemiology & introduction to `R markdown`](Epidemiology_Rmarkdown.html)
