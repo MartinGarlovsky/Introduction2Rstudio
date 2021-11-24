@@ -385,7 +385,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-11-22
+<strong>Last updated:</strong> 2021-11-24
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -476,16 +476,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMartinGarlovskyIntroduction2Rstudiotree9405cd076ba3cb3fbecc3d76a7f40ed3eff15e10targetblank9405cd0a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MartinGarlovsky/Introduction2Rstudio/tree/9405cd076ba3cb3fbecc3d76a7f40ed3eff15e10" target="_blank">9405cd0</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMartinGarlovskyIntroduction2Rstudiotreeb9963cd8493d5402d8f8248680cf17be10a35186targetblankb9963cda"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MartinGarlovsky/Introduction2Rstudio/tree/b9963cd8493d5402d8f8248680cf17be10a35186" target="_blank">b9963cd</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomMartinGarlovskyIntroduction2Rstudiotree9405cd076ba3cb3fbecc3d76a7f40ed3eff15e10targetblank9405cd0a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomMartinGarlovskyIntroduction2Rstudiotreeb9963cd8493d5402d8f8248680cf17be10a35186targetblankb9963cda" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/MartinGarlovsky/Introduction2Rstudio/tree/9405cd076ba3cb3fbecc3d76a7f40ed3eff15e10" target="_blank">9405cd0</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/MartinGarlovsky/Introduction2Rstudio/tree/b9963cd8493d5402d8f8248680cf17be10a35186" target="_blank">b9963cd</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -541,6 +541,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MartinGarlovsky/Introduction2Rstudio/blob/b9963cd8493d5402d8f8248680cf17be10a35186/analysis/First_session.rmd" target="_blank">b9963cd</a>
+</td>
+<td>
+MartinGarlovsky
+</td>
+<td>
+2021-11-24
+</td>
+<td>
+edit first session
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/MartinGarlovsky/Introduction2Rstudio/c9c43bf999f44e0c2b449956bba3c79d530040b0/docs/First_session.html" target="_blank">c9c43bf</a>
+</td>
+<td>
+MartinGarlovsky
+</td>
+<td>
+2021-11-22
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -884,6 +918,26 @@ diet &lt;- rep(c(&#39;vegan&#39;, &#39;vegetarian&#39;), 3)</code></pre>
 <div id="using-the-script-window" class="section level1">
 <h1>Using the script window</h1>
 <p>So far we’ve been working exclusively in the <code>console</code>. Unlike in the console window, hitting <code>enter</code> in the script window no longer executes your code, but instead will insert a new line. To execute a line of code we have to highlight the text and press <code>cmd + enter</code> (on Mac) or <code>ctrl + enter</code> (PC). <strong>To execute an entire line we do not have to highlight anything</strong> but can simply hit <code>cmd + enter</code>/<code>ctrl + enter</code> and R will execute the code and move to the next line. In the next section introducing <code>packages</code> this will hopefully become clear.</p>
+<div id="good-coding-practice" class="section level2">
+<h2>Good coding practice</h2>
+<p>You can explore options to make your code easier to understand, such as adding rainbow parantheses to keep track of multiple brackets (<code>Preferences &gt; Code &gt; Display</code>), or change the <code>theme</code> to make your code more readable (<code>Preferences &gt; Appearance</code>).</p>
+<ul>
+<li>Annotate everything!</li>
+<li>Structure your script
+<ul>
+<li>Load <code>libraries</code></li>
+<li>Load <code>data</code></li>
+<li>data wrangling</li>
+<li>save results</li>
+</ul></li>
+<li>Write readable code
+<ul>
+<li>Use meaningful names</li>
+<li>Put spaces between variables and operators ( <code>= + - * /</code> ) and after commas (e.g. <code>function(x, y)</code>)</li>
+<li>Keep code to less than 80 characters (where possible). You can add a margin to guide you in <code>Preferences &gt; Code &gt; Display</code></li>
+</ul></li>
+</ul>
+</div>
 <div id="annotating-your-script" class="section level2">
 <h2>Annotating your script</h2>
 <p>Working with scripts has many advantages over working directly in the console. First, when working directly in the <code>consol</code>, if you make a mistake you have to go back and retype everything in to the console (or at least hit the <code>up</code> arrow and find your mistake again). Unless you save the <code>workspace</code> (don’t), you will also not have a record of your workflow - which is crucial to make sure your analyses are <strong><em>reproducible</em></strong>. Working with scripts also allows you to add annotation to your code to help future scientists (this may be your future self) know exactly what you did. The importance of annotating your scripts cannot be overstated! Writing your code in scripts - combined with adding detailed annotation - also allows you to share your code and work collaboratively.</p>
