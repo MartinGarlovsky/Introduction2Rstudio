@@ -281,6 +281,20 @@ summary(diet_data)
 # Using the script window
 So far we've been working exclusively in the `console`. Unlike in the console window, hitting `enter` in the script window no longer executes your code, but instead will insert a new line. To execute a line of code we have to highlight the text and press `cmd + enter` (on Mac) or `ctrl + enter` (PC). **To execute an entire line we do not have to highlight anything** but can simply hit `cmd + enter`/`ctrl + enter` and R will execute the code and move to the next line. In the next section introducing `packages` this will hopefully become clear.
 
+## Good coding practice
+You can explore options to make your code easier to understand, such as adding rainbow parantheses to keep track of multiple brackets (`Preferences > Code > Display`), or change the `theme` to make your code more readable (`Preferences > Appearance`).
+
+* Annotate everything!
+* Structure your script
+  + Load `libraries`
+  + Load `data`
+  + data wrangling
+  + save results
+* Write readable code
+  + Use meaningful names
+  + Put spaces between variables and operators ( `= + - * /` ) and after commas (e.g. `function(x, y)`)
+  + Keep code to less than 80 characters (where possible). You can add a margin to guide you in `Preferences > Code > Display`
+
 ## Annotating your script
 Working with scripts has many advantages over working directly in the console. First, when working directly in the `consol`, if you make a mistake you have to go back and retype everything in to the console (or at least hit the `up` arrow and find your mistake again). Unless you save the `workspace` (don't), you will also not have a record of your workflow - which is crucial to make sure your analyses are ***reproducible***. Working with scripts also allows you to add annotation to your code to help future scientists (this may be your future self) know exactly what you did. The importance of annotating your scripts cannot be overstated! Writing your code in scripts - combined with adding detailed annotation - also allows you to share your code and work collaboratively. 
 
