@@ -12,4 +12,8 @@ In the following classes we will be learning how to use `R` and `R studio` for d
 
 ### [1. First session](First_session.html)
 
-### [2. Epidemiology & introduction to `R markdown`](Epidemiology_Rmarkdown.html)
+### [2. Introduction to `R markdown`](Introduction-to-R-markdown.html)
+
+### [3. First steps in epidemiological data reporting](First-steps-in-epidemiological-data-reporting.html)
+
+### [4. Flexdashboard](Flexdashboard.html)
