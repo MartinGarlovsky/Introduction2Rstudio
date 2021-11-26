@@ -1,0 +1,137 @@
+---
+title: "Introduction to R markdown and first steps in epidemiological data reporting"
+author: "Oliver Otti"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: html_document
+---
+#Get started with a new R project using R markdown
+
+## Create a new project
+
+The best way to operate a project is to actually have folders in a project folder containing all the files you need for your analysis and manuscript write up. It is very much worth your while to spend some time thinking about how you want to organise yourself with your different projects you pursue. In my experience it is best to organise your computer using folders in a hierarchical manner down to your actual R project folders. [Here](https://www.olivier-supplisson.fr/tips-for-r-beginners/organizing-your-r-projects) you can get some advice on how to best organise your analysis in R projects. However, we will not be that organised here to keep the learning curve a bit flatter. Nevertheless, adopting this modus operandi will certainly improve your reproducibility and efficiency.
+
+### A few steps to get your project folder organised
+
+1. create a new project as follows:
+Go to 'File'>'New project'>'New directory'>'New projects', then choose your name and location for the project and then click on 'Create project'
+
+2. Save this .rmd file and the example data set to the project folder  
+[.rmd file](Introduction to R markdown and first steps in epidemiological data reporting.Rmd)
+
+I recommend the following folder structure for a research project such as a master or PhD thesis:
+
+dir.create("raw_data") contains all your original data files   
+dir.create("tidy_data") contains all your tidy data files   
+dir.create("figures") contains all your created figures   
+dir.create("R") contains all your R-scripts and .rmd files   
+dir.create("R outputs") contains your stats reports   
+dir.create("reports&manuscript") contains your manuscript for publication  
+
+## Why is R markdown helpful?
+
+With [R markdown](https://rmarkdown.rstudio.com) you can describe your study and write your report directly in R Studio.
+
+In R markdown it is very easy to explain in small steps how you proceeded with your study and statistical analyses. Like this you can produce a report for your peers/collaborators/supervisors that can be constantly improved or changed as you proceed with your study or while your write your manuscript. Also, if you or other people want to conduct a similar study in the future the report and analyses can be easily adapted to the new study. That means once you have done the effort to make a detailed report of your analyses, you will always have a blueprint for your future studies.  
+
+The complete R code can either be put in your report to explain to others how you analysed your data or you can remove the code to produce at least the result section for your manuscript that you aim to publish in a scientific journal. For you as students it might be also interesting to use R markdown to write your course report if it involves statistical analyses. Some people use R markdown even to create their own websites or talk slides.
+  
+R markdown enables you to produce **reproducible science**. Why reproducible science is necessary should be obvious, but here an article and a book chapter on the issue:
+
+[*Nature News Feature*](https://www.nature.com/news/1-500-scientists-lift-the-lid-on-reproducibility-1.19970)
+
+[Chapter3: Understanding Reproducibility and Replicability](https://www.ncbi.nlm.nih.gov/books/NBK547546/)
+ - *Blue fonts indicate links to external sources on the internet*).
+
+Reproducible science enables us to exactly report how one collects and processes its own data and conducts the statistical analysis of said data. Like this other scientists can understand our reasoning for this process and our statistical analysis. Also, they are able to reproduce our study and data analysis. Such transparency is sorely needed and helps improve our work. Last but not least other scientist can learn from our work and design new studies based on our findings.
+
+One big advantage of R markdown is that one does not need to care about formatting and spend a lot of time on it. To use R markdown you need:
+
+[R](https://cran.rstudio.com/)
+
+[R-Studio](https://rstudio.com/products/rstudio/download/#download).
+
+Also, you must install the R markdown package
+
+> install.packages("rmarkdown")
+
+After the installation it is best to open a new project in R Studio (File->NewProject). 
+
+In the newly generated project folder you have to place the three following files:  
+"Introduction to R markdown and first steps in epidemiological data reporting.Rmd"  
+"Knit-Button.png"  
+"Navigation.PNG"  
+
+Here we now you can run this rmd file in R Studio.
+
+Hit the *Knit* and R Studio runs the code and then produces the report by rendering the script into the wanted format (here we use .html files)
+
+![Knit Button in RStudio](Knit-Button.png){ width=70% }
+
+It is very easy to choose a report output format. You only need to define the format at the start of the .rmd document. At the start of the document you find a section marked with three dashes at the start and at the end:
+
+
+>title: "Introduction to R markdown and first steps in epidemiological data reporting"   
+author: "Oliver Otti"   
+date: "`r format(Sys.time(), '%d %B, %Y')`"       
+output: html_document
+
+The following output options are available:
+
++ html - html_document
++ pdf [uses Tex](https://yihui.org/tinytex/) - pdf_document
++ Microsoft Word (.docx) - word_document 
++ Rich Text Format - rtf_document 
++ PDF presentation [uses Tex](https://yihui.org/tinytex/) - beamer_presentation 
++ Powerpoint presentation - powerpoint_presentation  
+
+In the header you can also find a string that uses the actual date of knitting and puts in the document:  
+>date: "`r format(Sys.time(), '%d %B, %Y')`" 
+
+This can also be adjusted to any date you wish and the date will be mentioned below the author names in the knitted output file. Here I have chosen the *HTML* as an output file, because this file can be viewed on any system and I do not need to care about the page format or length. If I work with colleagues I would use *WORD* as an output file. Normally, people are used to comment in word files, so this seems a good option when one is at the manusript writing stage. To prepare a manuscript for publication I would use *PDF* as an output format.
+
+## Short intro to the text formatting options in R markdown
+
+I recommend using the R markdown cheatsheet [R markdown cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/rmarkdown.pdf) and the following website for [an instruction](https://rmarkdown.rstudio.com/lesson-1.html).
+
+[Here](https://www.rstudio.com/resources/cheatsheets/) you can find more cheatsheets.
+
+Header font size can be defined with hashtags:
+
+# One #: In R markdown the header font size depends on the number of hashtags  
+
+## Two ##: Introduction
+
+### Three ###: Sub section headers require an additional hashta
+
+To begin a new paragraph you need to write two spaces after the last sentence of the previous paragraph.
+Otherwise even
+a sentence distributed
+over several lines
+will become flow text on the same line.
+
+In this part text can be formated as *italic*, **bold** or ***italic and bold*** by using different numbers of "*" at the start and the end of the word/s you want to format.
+
+With these brackets [] you can link different sections of your text. If the [] brackets are followed by the link in these bracket () you can add links to the text.
+
+For example to refer to the [Introduction] or [an online article](https://en.wikipedia.org/wiki/Reproducibility)
+
+
+---
+
+
+
+## Using R code in R markdown
+Now let us use R code. R markdown uses so called 'code chunks' to use the R interface. The chunks behave exactly in the same way as normal R scripts that some of you might already have used. In a .rmd file a code chunk starts with the following line 
+
+>```{r get covid-19 data}...  
+
+and ends with
+
+>```   
+   
+To be honest I had to get used to these code chunks because they are different from the usual R script editor. You cannot see your graphs in the plot window on the lower right side in R studio or the output in the console down below. However, graphs and outputs are popping up directly below the code chunks. But after getting used to this and realising that the navigation through sections and from one code chunk is actually pretty easy with the following button  
+   
+![Navigation panel](Navigation.PNG){ width=50% }   
+   
+I am now using R markdown for all my new projects and analyses.   
+   

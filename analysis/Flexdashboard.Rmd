@@ -1,0 +1,132 @@
+---
+title: "My first COVID-19 Dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+#these libraries need to be loaded
+library(utils)
+
+#read the dataset sheet for the daily case numbers in the EU into “R”. The dataset will be called "covid19".
+covid19 <- read.csv("https://opendata.ecdc.europa.eu/covid19/nationalcasedeath_eueea_daily_ei/csv", na.strings = "", fileEncoding = "UTF-8-BOM")
+
+str(covid19) # check if the data has been loaded correctly
+head(covid19) # show the to 6 lines of the data frame
+
+
+#read the dataset sheet for the cases in the different age groups in the EU into “R”. The dataset will be called "covid19_age".
+covid19_age<-read.csv("https://opendata.ecdc.europa.eu/covid19/agecasesnational/csv/data.csv", na.strings = "", fileEncoding = "UTF-8-BOM")
+
+str(covid19_age) # check if the data has been loaded correctly
+head(covid19_age) # show the to 6 lines of the data frame
+
+# load package
+library(tidyverse) #to reshape and convert data
+#load packages
+library(ggplot2) #to make nice figures
+library(tidyquant) #to quickly produce a rolling 7 day average
+
+# convert dateRep to class date and rename certain columns
+covid19 <- covid19 %>% 
+  mutate(dateRep = as.Date(dateRep, format = "%d/%m/%Y")) %>% rename(country = "countriesAndTerritories", continent = "continentExp")
+covid19$prop.dead<-covid19$deaths/covid19$cases #calculate proportion of deaths per day
+covid19 <- filter(covid19, dateRep > as.Date("2021-03-31")) #set the start date for your report to 31st March 2021
+
+str(covid19) #have quick look at your data if everything is there as planned
+
+# create a data set only for Germany
+covid19Germany <- filter(covid19, country=="Germany")
+
+#produce a tibble with covid19 case counts for EU country including CFR and confidence intervals
+covid19_counts<-covid19 %>% group_by(country) %>% summarise(case_count=sum(cases,na.rm=T),death_count=sum(deaths,na.rm=T))
+
+covid19_counts$recovered<-covid19_counts$case_count-covid19_counts$death_count #calculate the number of recovered
+covid19_counts$CFR<-round(covid19_counts$death_count/covid19_counts$case_count*100,digits=3) #calculate CFR per country
+covid19_counts$lower_CI<-round((100/covid19_counts$case_count)*(covid19_counts$death_count - (1.96*sqrt(covid19_counts$death_count))),digits=3) #calculate upper confidence interval
+covid19_counts$upper_CI<-round((100/covid19_counts$case_count)*(covid19_counts$death_count + (1.96*sqrt(covid19_counts$death_count))),digits=3) #calculate lower confidence interval
+
+#have a look if all variables are in the tibble table
+str(covid19_counts)
+
+```
+
+Column {data-width=500}
+-----------------------------------------------------------------------
+
+### Daily case numbers for Germany and 7 day rolling average in 2021
+
+```{r}
+# create the ggplot for the number of cases and deaths in Germany from 31st March to today
+
+cols <- c("Cases"="lightblue","Deaths"="red") #cols defines the colours in the legend that we want to draw. This is a special case here, because we need to specify colour and fill in the aesthetics to be able to draw a legend. However, we also have two geom_col() functions. So in order not to "confuse" ggplot() we have to tell it with the help of cols that Cases need to be lightblue and Deaths need to be red.
+
+ggplot(data = covid19Germany)+ #tell ggplot() which data set to use, don't forget to link the different lines of code for your plot with a "+", otherwise not all commands will be executed
+  geom_col(
+   mapping = aes(x = dateRep, y = cases, colour="Cases", fill="Cases"),
+   width = 1)+                #geom_col produces bars for the aesthetics specified in the brackets. Here for daily counts, set width = 1 to avoid white space between bars
+  geom_col(
+   mapping = aes(x = dateRep, y = deaths, colour="Deaths", fill="Deaths"),
+   width = 1)+                #now the same for the deaths
+  tidyquant::geom_ma(aes(x = dateRep, y = cases), # plot moving average
+      n = 7,           
+      size = 1,
+      colour = "darkblue")+
+  
+  scale_fill_manual(name="",values=cols)+    #define fill colours
+  scale_colour_manual(name="",values=cols)+  #define border colours, at the same time ggplot draws a legend
+  # labels for x-axis
+  scale_x_date(
+    date_breaks = "1 month",       #labels every month 
+    date_minor_breaks = "1 month", #gridlines every month
+    date_labels = '%b')+           #labelled by month with the year below
+
+  theme_minimal()+                 #theme style, the theme is the overall look of the figure, try other themes such as theme_classic() or others: https://ggplot2.tidyverse.org/reference/ggtheme.html
+  
+  labs(x = "Date of report",       #x-axis title
+    y = "Number of cases/deaths")
+```
+
+### 14-day incidence rate per age group in the EU
+
+```{r}
+#load package
+library(scales) #to convert scientific numbers to decimal numbers
+
+covid19_age_incidence_means<-covid19_age %>% group_by(year_week,age_group) %>% summarise(mean_14d_incidence=mean(rate_14_day_per_100k,na.rm=T)) # create a tibble with mean 14 day incidence for each age group across all EU countries
+
+ggplot(data = covid19_age_incidence_means)+
+  geom_col(
+   mapping = aes(x = year_week, y = mean_14d_incidence, fill=age_group),
+   width = 1)+
+  
+# create facets
+  facet_wrap(                 # split your plot into several plots to show the epi curves for each age group
+    ~age_group,               # define for which variable you want to produce facets
+    ncol = 3,                 # number of columns for the arrangement of each small plot 
+    strip.position = "top")+  # define where the age group should be added to each small plot
+
+  theme_minimal()+
+  
+# rotate labels for x-axis
+  theme(axis.text.x = element_text(angle = 90, size = 5))+
+  
+# make y-axis numbers non-scientific
+  scale_y_continuous(labels=comma)+
+  
+  labs(x = "Date of report", 
+    y = "Number of cases per 100'000 inhabitants",
+    fill="Age group")
+```
+
+Column {data-width=500}
+-----------------------------------------------------------------------
+### COVID-19 cases, deaths and CFRs for each country in the EU
+
+```{r, echo=FALSE}
+knitr::kable(covid19_counts) #unfortunately flextable() and flexdashboard do not work nicely together.
+```
+

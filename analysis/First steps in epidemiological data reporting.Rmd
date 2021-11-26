@@ -1,0 +1,376 @@
+---
+title: "First steps in epidemiological data reporting"
+author: "Oliver Otti"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: html_document
+---
+# How to create an epidemiological report?
+
+For most of the following R code I have used the [The Epidemiologists R Handbook](https://epirhandbook.com/en/index.html). It is a great resource to learn many different skills not solely useful to an epidemiologist. First of all, it provides a good introduction to [R markdown](https://bookdown.org/yihui/rmarkdown/) and tidy data including a lot of examples how to reshape your data and convert variables in order to readily use it/them for your figures, tables and analysis.
+
+Before we start I need you to install the some packages. Please just copy & paste the following text into the console:
+
+install.packages("utils")
+install.packages("tidyverse")
+install.packages("ggplot2")
+install.packages("tidyquant")
+install.packages("knitr")
+install.packages("scales")
+install.packages("officer")
+install.packages("flextables")
+install.packages("systemfonts")
+install.packages("flexdashboard")
+
+Now we need some data to actually produce a report. As an example we upload the EU Covid-19 case data of the European Centre for Disease Prevention and Control from the following websites:
+<https://www.ecdc.europa.eu/en/publications-data/data-daily-new-cases-covid-19-eueea-country> for daily cases in the EU and
+<https://www.ecdc.europa.eu/en/publications-data/covid-19-data-14-day-age-notification-rate-new-cases> for cases in the different age groups.
+
+Within the code chunks we can use the hashtag # for commenting on the code we write. I advise you to use English as a working language for this. Simply because the code is also in English. And it is extremely important to comment on the code you write, because this will make it easier to follow what you have been doing in the past.
+
+```{r get covid19 data in R}
+#these libraries need to be loaded
+library(utils)
+
+#read the dataset sheet for the daily case numbers in the EU into “R”. The dataset will be called "covid19".
+covid19 <- read.csv("https://opendata.ecdc.europa.eu/covid19/nationalcasedeath_eueea_daily_ei/csv", na.strings = "", fileEncoding = "UTF-8-BOM")
+
+str(covid19) # check if the data has been loaded correctly
+head(covid19) # show the to 6 lines of the data frame
+
+
+#read the dataset sheet for the cases in the different age groups in the EU into “R”. The dataset will be called "covid19_age".
+covid19_age<-read.csv("https://opendata.ecdc.europa.eu/covid19/agecasesnational/csv/data.csv", na.strings = "", fileEncoding = "UTF-8-BOM")
+
+str(covid19_age) # check if the data has been loaded correctly
+head(covid19_age) # show the to 6 lines of the data frame
+
+```
+   
+   
+## Putting plots into your report
+
+You can easily add high-resolution graphs and tables to your report. With the help of the packages **ggplot2** and **tidyverse** you will be able to produce very nice figures to include in your report. First, we need to reshape part of our data and convert some variables.
+
+```{r covid19 data reshaping and converting}
+# load package
+library(tidyverse) #to reshape and convert data
+
+# convert dateRep to class date and rename certain columns
+covid19 <- covid19 %>% 
+  mutate(dateRep = as.Date(dateRep, format = "%d/%m/%Y")) %>% rename(country = "countriesAndTerritories", continent = "continentExp")
+covid19$prop.dead<-covid19$deaths/covid19$cases #calculate proportion of deaths per day
+covid19 <- filter(covid19, dateRep > as.Date("2021-03-31")) #set the start date for your report to 31st March 2021
+
+str(covid19) #have quick look at your data if everything is there as planned
+
+# create a data set only for Germany
+covid19Germany <- filter(covid19, country=="Germany")
+```
+
+Now we have two data sets ready to be used for making some figures. First, let us produce a figure for the COVID-19 cases in Germany from March 2021 to last week.
+
+```{r covid19 Germany}
+#load packages
+library(ggplot2) #to make nice figures
+library(tidyquant) #to quickly produce a rolling 7 day average
+
+# create the ggplot for the number of cases and deaths in Germany from 31st March to today
+
+cols <- c("Cases"="lightblue","Deaths"="red") #cols defines the colours in the legend that we want to draw. This is a special case here, because we need to specify colour and fill in the aesthetics to be able to draw a legend. However, we also have two geom_col() functions. So in order not to "confuse" ggplot() we have to tell it with the help of cols that Cases need to be lightblue and Deaths need to be red.
+
+ggplot(data = covid19Germany)+ #tell ggplot() which data set to use, don't forget to link the different lines of code for your plot with a "+", otherwise not all commands will be executed
+  geom_col(
+   mapping = aes(x = dateRep, y = cases, colour="Cases", fill="Cases"),
+   width = 1)+                #geom_col produces bars for the aesthetics specified in the brackets. Here for daily counts, set width = 1 to avoid white space between bars
+  geom_col(
+   mapping = aes(x = dateRep, y = deaths, colour="Deaths", fill="Deaths"),
+   width = 1)+                #now the same for the deaths
+  tidyquant::geom_ma(aes(x = dateRep, y = cases), # plot moving average
+      n = 7,           
+      size = 1,
+      colour = "darkblue")+
+  
+  scale_fill_manual(name="",values=cols)+    #define fill colours
+  scale_colour_manual(name="",values=cols)+  #define border colours, at the same time ggplot draws a legend
+  
+# labels for x-axis
+  scale_x_date(
+    date_breaks = "1 month",       #labels every month 
+    date_minor_breaks = "1 month", #gridlines every month
+    date_labels = '%b')+           #labelled by month with the year below
+
+  theme_minimal()+                 #theme style, the theme is the overall look of the figure, try other themes such as theme_classic() or others: https://ggplot2.tidyverse.org/reference/ggtheme.html
+  
+  labs(x = "Date of report",       #x-axis title
+    y = "Number of cases/deaths",  #y-axis title
+    title = "Daily case numbers and 7 day rolling average in 2021") #figure title
+
+#the same plot can be made with lines instead of a histogram
+ggplot(data = covid19Germany)+
+  geom_line(
+   mapping = aes(x = dateRep, y = cases, colour="Cases"))+                #geom_line() will draw a line
+  geom_line(
+   mapping = aes(x = dateRep, y = deaths, colour="Deaths"))+
+  
+  scale_fill_manual(name="",values=cols)+
+  scale_colour_manual(name="",values=cols)+
+  
+# labels for x-axis
+  scale_x_date(
+    date_breaks = "1 month",       #labels every month 
+    date_minor_breaks = "1 month", #gridlines every month
+    date_labels = '%b')+           #labelled by month with the year below
+
+  theme_minimal()+
+  
+  labs(x = "Date of report", 
+    y = "Number of cases/deaths",
+    title = "Daily case and death numbers in 2021")
+
+```
+
+We can also directly put numbers and calculations from the code chunks into the text. For automated reports such as the ones used during the covid19 pandemic this reduced the work load dramatically.
+ 
+In `r filter(covid19Germany, dateRep=="2021-11-24")[1,7]` the number of cases was 
+**`r filter(covid19Germany, dateRep=="2021-11-24")[1,5]`** 
+on the 
+`r filter(covid19Germany, dateRep=="2021-11-24")[1,1]`.   
+   
+   
+**If we do not want to show the code chunk in the report** we need to add `echo=FALSE` to the chunk header, i.e. **>```{r Corona data EU, echo=FALSE}...**. Then only the figure is shown in the report:
+
+```{r covid19 data EU, echo=FALSE}
+#echo=FALSE will only put the following figure in the report without the code chunk
+
+# create the ggplot for the number of cases and deaths for all countries in the EU from 31st March to today
+ggplot(data = covid19)+
+  geom_col(
+   mapping = aes(x = dateRep, y = cases, colour="Cases", fill="Cases"),
+   width = 1)+                # for daily counts, set width = 1 to avoid white space between bars
+geom_col(
+   mapping = aes(x = dateRep, y = deaths, colour="Deaths", fill="Deaths"),
+   width = 1)+                # for daily counts, set width = 1 to avoid white space between bars
+  
+# create facets for each EU country
+  facet_wrap(                 # split your plot into several plots to show the epi curves for each EU country
+    ~country,                 # define for which variable you want to produce facets
+    ncol = 5,                 # number of columns for the arrangement of each small plot 
+    strip.position = "top")+  # define where the name of the country should be added to each small plot
+
+  scale_fill_manual(name="",values=cols)+
+  scale_colour_manual(name="",values=cols)+
+  
+# labels for x-axis
+  scale_x_date(
+    date_breaks = "2 months",      # labels every 2 months 
+    date_minor_breaks = "1 month", # gridlines every month
+    date_labels = '%b')+           # labelled by month with the year below
+  
+  theme_minimal()+
+  
+  labs(x = "Date of report", 
+    y = "Number of cases/deaths",
+    title = "Daily cases and death numbers in 2021")
+
+```
+
+```{r covid19 data age groups}
+#load package
+library(scales) #to convert scientific numbers to decimal numbers
+
+# case numbers for different age groups in the EU
+ggplot(data = covid19_age)+
+  geom_col(
+   mapping = aes(x = year_week, y = new_cases,fill=age_group),
+   width = 1)+                # for daily counts, set width = 1 to avoid white space between bars
+  
+  theme_minimal()+
+
+# rotate labels for x-axis
+    theme(axis.text.x = element_text(angle = 90, size = 5))+ #even though still a bit ugly, but with this year_week numbers will be displayed perpendicular to the x-axis, size defines the font size
+
+# make y-axis numbers non-scientific
+  scale_y_continuous(labels=comma)+ #convert scientific numbers on the y-axis to "normal" numbers
+  
+  labs(x = "Week of report", 
+    y = "Number of cases",
+    title = "Weekly case numbers per age group in the EU",
+    fill="Age group")
+
+covid19_age_incidence_means<-covid19_age %>% group_by(year_week,age_group) %>% summarise(mean_14d_incidence=mean(rate_14_day_per_100k,na.rm=T)) # create a tibble with mean 14 day incidence for each age group across all EU countries
+
+ggplot(data = covid19_age_incidence_means)+
+  geom_col(
+   mapping = aes(x = year_week, y = mean_14d_incidence, fill=age_group),
+   width = 1)+
+  
+# create facets
+  facet_wrap(                 # split your plot into several plots to show the epi curves for each age group
+    ~age_group,               # define for which variable you want to produce facets
+    ncol = 3,                 # number of columns for the arrangement of each small plot 
+    strip.position = "top")+  # define where the age group should be added to each small plot
+
+  theme_minimal()+
+  
+# rotate labels for x-axis
+  theme(axis.text.x = element_text(angle = 90, size = 5))+
+  
+# make y-axis numbers non-scientific
+  scale_y_continuous(labels=comma)+
+  
+  labs(x = "Date of report", 
+    y = "Number of cases per 100'000 inhabitants",
+    title = "14-day incidence rate per age group in the EU",
+    fill="Age group")
+```
+  
+  
+## Case fatality rate CFR
+
+The case fatality rate is one measure to investigate the mortality of an infectious disease. Crudely calculated it is the number of deaths in relation to the number of confirmed cases. The CFR can be calculated for different age groups, populations, geographic regions, nations, time periods etc. and can so serve as a comparative "index" for 
+
+The crude CFR:
+
+$$CFR= \frac{\sum _{global\ deaths}}{\sum _{global\ cases}}$$
+
+To construct a 95% confidence interval for a crude CFR, the following formulae can be used:
+
+$$Upper Limit = \frac{100}n*(d + 1.96 * \sqrt{d})$$
+
+$$Lower Limit = \frac{100}n*(d - 1.96 * \sqrt{d})$$
+$d$ = number of deaths upon which the CFR is based   
+$n$ = number of confirmed positive cases
+
+The infection fatality rate is somewhat harder to calculate because here we need some estimate for the number of mild cases that are most likely undetected or unreported. Seroprevalence studies measuring the number of individuals with antibodies in their have estimated the number of all potential COVID-19 cases during local outbreaks and defined the IFR of COVID-19 to be between 0.6 and 0.7%. The RKI estimates the IFR for Germany at 0.8%. Just to give some perspective, of the ~50'000 individuals that currently infect themselves every day ~400 will die.
+
+To calculate the crude CFR for Germany we use a different data set, which we will also use for calculating the R~t7~:
+
+```{r covid19 weekly cases}
+#get the data for the weekly cases in the EU
+weekly_cases<-read.csv("https://opendata.ecdc.europa.eu/covid19/nationalcasedeath/csv/data.csv")
+str(weekly_cases)
+
+#reshape the data set
+infections<-filter(weekly_cases, indicator == "cases")  #subset for confirmed cases
+dead<-filter(weekly_cases, indicator == "deaths")       #subset for confirmed deaths
+weekly_numbers<-full_join(infections, dead, by=c("country","country_code","continent","population","year_week","source")) #merge data sets
+names(weekly_numbers)<-c("country","country_code","continent","population","indicator.x","cases","year_week","case_rate_14_day","cumulative_cases", "source" ,"indicator.y","deaths","death_rate_14_day","cumulative_deaths") #rename columns
+
+```
+   
+   
+The crude CFR since the start of the pandemic is roughly **`r round(sum(weekly_numbers$deaths[which(weekly_numbers$country =="Germany")]/sum(weekly_numbers$cases[which(weekly_numbers$country =="Germany")]))*100,digits=3)`%** with a confidence interval of **`r round((100/sum(weekly_numbers$cases[which(weekly_numbers$country =="Germany")]))*(sum(weekly_numbers$deaths[which(weekly_numbers$country =="Germany")]) - (1.96*sqrt(sum(weekly_numbers$deaths[which(weekly_numbers$country =="Germany")])))),digits=3)`%** to **`r round((100/sum(weekly_numbers$cases[which(weekly_numbers$country =="Germany")]))*(sum(weekly_numbers$deaths[which(weekly_numbers$country =="Germany")]) + (1.96*sqrt(sum(weekly_numbers$deaths[which(weekly_numbers$country =="Germany")])))),digits=3)`%**.
+
+The function `round()` can be used to round numbers and define the number of decimals with, e.g. the code for rounding **x** to **3** decimals is as follows `round(x, digits=3)`.  
+
+Probably we are interested in the cases, deaths and the CFR of all EU countries. With the function `flextable()` from the package with same name we can produce a neat table for comparing case numbers:
+
+```{r table covid19 for EU with crude CFRs}
+#produce a tibble with covid19 case counts for EU country including CFR and confidence intervals
+covid19_counts<-covid19 %>% group_by(country) %>% summarise(case_count=sum(cases,na.rm=T),death_count=sum(deaths,na.rm=T))
+
+covid19_counts$recovered<-covid19_counts$case_count-covid19_counts$death_count #calculate the number of recovered
+covid19_counts$CFR<-round(covid19_counts$death_count/covid19_counts$case_count*100,digits=3) #calculate CFR per country
+covid19_counts$lower_CI<-round((100/covid19_counts$case_count)*(covid19_counts$death_count - (1.96*sqrt(covid19_counts$death_count))),digits=3) #calculate upper confidence interval
+covid19_counts$upper_CI<-round((100/covid19_counts$case_count)*(covid19_counts$death_count + (1.96*sqrt(covid19_counts$death_count))),digits=3) #calculate lower confidence interval
+
+#have a look if all variables are in the tibble table
+str(covid19_counts)
+
+# now make a nice table from the tibble covid19_counts with the package flextable
+library(flextable)
+
+#define a border style with the officer package
+library(officer)
+border_style = fp_border(color="black", width=1)
+
+flextable(covid19_counts) %>%              # table is piped in from above
+  add_header_row(
+    top = TRUE,                            # New header goes on top of existing header row
+    values = c("Country",                  # Header values for each column below
+               "Total confirmed cases", 
+               "Deaths",    
+               "Recovered",
+               "Mortality",                # This will be the top-level header for this and two next columns
+               "", 
+               "")) %>% 
+    set_header_labels(                     # Rename the columns in original header row
+      country = "", 
+      case_count = "",                  
+      death_count = "",
+      recovered = "",
+      CFR = "CFR %",                       # This goes below the top-level header "Mortality" we defined above
+      lower_CI = "lower 95% CI",           # This goes below the top-level header "Mortality" we defined above
+      upper_CI = "upper 95% CI")  %>%      # This goes below the top-level header "Mortality" we defined above
+  merge_at(i = 1, j = 5:7, part = "header") %>% # Horizontally merge columns 5 to 7 in new header row
+  border_remove() %>%  
+  theme_booktabs() %>% 
+  vline(part = "all", j = 2, border = border_style) %>%   # draw vertical line at column 2 
+  vline(part = "all", j = 4, border = border_style) %>%   # draw vertical line at column 4
+  merge_at(i = 1:2, j = 1, part = "header") %>%           # vertically merge column 1
+  merge_at(i = 1:2, j = 2, part = "header") %>%           # vertically merge column 2
+  merge_at(i = 1:2, j = 3, part = "header") %>%           # vertically merge column 3
+  merge_at(i = 1:2, j = 4, part = "header") %>%           # vertically merge column 4
+  width(j=c(1,2), width = 1.2) %>%                        # define column width for column 1 and 2
+  width(j=c(3,4), width = 1) %>%                          # define column width for column 3 and 4
+  width(j=c(5,6,7), width = 0.6) %>%                      # define column width for columns 5 to 7
+  flextable::align(., align = "center", j = c(2:7), part = "all") %>%  # center all text
+  bg(., part = "body", bg = "gray95")  %>%                # make background of table body grey
+  bg(., j=c(1:7), i= ~ country == "Germany", part = "body", bg = "#91c293") %>%   # make background of line with Germany green
+  bold(i = 1, bold = TRUE, part = "header") %>%           # make header font bold
+  bold(i = 11, bold = TRUE, part = "body")                # make font bold in line 11 of the table body 
+
+```
+
+If we compare the CFRs from both data sets, we immediately realise that they differ dramatically. Over the complete pandemic the CFR is **`r round(sum(weekly_numbers$deaths[which(weekly_numbers$country =="Germany")]/sum(weekly_numbers$cases[which(weekly_numbers$country =="Germany")]))*100,digits=3)`%** with a confidence interval of **`r round((100/sum(weekly_numbers$cases[which(weekly_numbers$country =="Germany")]))*(sum(weekly_numbers$deaths[which(weekly_numbers$country =="Germany")]) - (1.96*sqrt(sum(weekly_numbers$deaths[which(weekly_numbers$country =="Germany")])))),digits=3)`%** to **`r round((100/sum(weekly_numbers$cases[which(weekly_numbers$country =="Germany")]))*(sum(weekly_numbers$deaths[which(weekly_numbers$country =="Germany")]) + (1.96*sqrt(sum(weekly_numbers$deaths[which(weekly_numbers$country =="Germany")])))),digits=3)`%** while the CFR from March 2021 to last week is much lower, i.e. **`r covid19_counts$CFR[which(covid19_counts$country=="Germany")]`%** (95% CI: `r covid19_counts$lower_CI[which(covid19_counts$country=="Germany")]`%, `r covid19_counts$upper_CI[which(covid19_counts$country=="Germany")]`% ). This decrease is a potential effect of the public health measures, such as masks, social distancing and vaccines. But such a claim would need to be properly analysed, which is beyond the scope of this course.
+
+   
+## Reproduction number R~0~ and R~t7~
+
+The basic reproduction number is only used in theoretical models and is the product of the average of 
+infection-producing contacts per unit time $\beta$ and the mean infectious period of $\tau$:   
+
+$$R_{~0~} = \beta\tau$$
+
+During a pandemic the effective reproduction number constantly changes, especially if health measure are put in place and depends on the local behaviour of the host. Therefore, early in the pandemic the effective reproduction number over seven days was calculated to have some idea how and whether health measures had any effect on the pandemic. 
+
+This effective reproduction number can be calculated as follows:
+
+$$R_{t7}= \frac{\sum _{cases\ of\ the\ last\ week}}{\sum _{cases\ of\ the\ week\ before}}$$
+
+For example, the R~t7~ value for week 39 was
+**`r round(weekly_numbers$cases[which(weekly_numbers$country =="Germany")][40]/weekly_numbers$cases[which(weekly_numbers$country =="Germany")][39],digits=3)`** in Germany.
+
+**Very important to note here:** I am **not** an epidemiologist, most of these calculations, including this R~t7~ value, are very crude measures. In reality, CFR, IFR, R~t7~ and R0 are not the same for each age group and population. Therefore, proper epidemiologists take such aspects into account and correct or scale for them in their models. However, this is beyond the scope of this course.
+
+How something like this is done correctly you can read up in [Yamauchi et al. 2019](https://www.nature.com/articles/s41598-019-39057-w#Sec9). I will elaborate on these calculations in the epidemiology lectures.
+With the present example I just wanted to introduce you to R markdown and how you can easily write a script to produce a pretty shiny report for the COVID-19 case numbers in Germany.
+
+On side note: How you can generate such nice formulas in R markdown is beyond the scope of this course. But if you are interested visit the following [website](http://www.math.mcgill.ca/yyang/regression/RMarkdown/example.html).
+
+## Now it is your turn to practice
+
+Please try some scripting and writing yourself. The best way to get used to R and its packages is to use the code and change parameters in order to see and learn what the code stands for.
+
+Therefore I would like you to do the following excercises:  
+
+1. Give the .rmd file a new name and save it. Then change the author name to your name and generate a report for another country. 
+ 
+2. Try the following header  
+>output:   
+    html_document:  
+        fig_height: 4  
+        fig_width: 6  
+        toc: yes  
+        toc_depth: 5  
+        toc_float: yes  
+
+2. Choose word_document as a report output (you can also try powerpoint and PDF as output format)  
+3. Generate a report only for 31st Juli to 29th November 2021 removing all the code chunks.  
+4. Generate a report for Dresden by downloading the following data set
+<https://public.fusionbase.io/explore/covid19-germany/data> and use read.csv() to upload the data.
+
+
+Good luck and if you have any questions please [Email](mailto:oliver.otti@uni-bayreuth.de) me.
+
+
